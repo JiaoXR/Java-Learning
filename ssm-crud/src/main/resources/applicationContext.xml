@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Spring 配置文件-->
+
+    <context:component-scan base-package="com.jaxer.example">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--**************** 数据源 ************************-->
+
+    <context:property-placeholder location="classpath:dbconfig.properties"/>
+    <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--**************** 整合 MyBatis ************************-->
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--MyBatis 全局配置文件的位置-->
+        <property name="configLocation" value="mybatis-config.xml"/>
+        <property name="dataSource" ref="pooledDataSource"/>
+
+        <!--指定 mapper 文件位置-->
+        <property name="mapperLocations" value="classpath:mapper"/>
+    </bean>
+
+    <!--配置扫描器，将 MyBatis 接口的实现加入到 IoC 容器中-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描所有 DAO 接口的实现，添加到 IoC 容器-->
+        <property name="basePackage" value="com.jaxer.example"/>
+    </bean>
+
+    <!--**************** 事务控制 ************************-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="pooledDataSource"/>
+    </bean>
+
+    <!--开启基于注解的事务，使用 XML 配置形式的事务（使用较多）-->
+    <aop:config>
+        <aop:pointcut id="txPoint" expression="execution(* com.jaxer.example.service..*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+    <!--配置事务通知，事务如何切入（transaction-manager 默认为 transactionManager）-->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!--所有方法都是事务方法-->
+            <tx:method name="*"/>
+            <!--get 开头的所有方法-->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+</beans>
