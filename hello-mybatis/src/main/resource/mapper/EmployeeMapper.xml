@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace：命名空间；指定为接口的全类型
+    id：唯一标识；方法名
+    resultType：返回值类型
+    #{id}：从传递的参数中取出id值
+-->
+<mapper namespace="com.jaxer.example.dao.EmployeeMapper">
+    <select id="getById" resultType="Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+</mapper>

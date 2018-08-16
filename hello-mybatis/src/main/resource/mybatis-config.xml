@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis全局配置文件-->
+<configuration>
+    <!--
+        mybatis 可以使用 properties 来引入外部 properties 配置文件的内容；
+		resource：引入类路径下的资源
+		url：引入网络路径或者磁盘路径下的资源
+		PS: 与 Spring 整合时，交由 Spring 管理，该标签使用较少
+	-->
+    <properties resource="dbconfig.properties"/>
+
+    <!--
+        settings 包含很多重要的设置项
+        setting:用来设置每一个设置项
+        例如：数据库中 last_name 对应 DO 中的 lastName
+        官网：http://www.mybatis.org/mybatis-3/zh/configuration.html#settings
+    -->
+    <settings>
+        <!--开启驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--Oracle 处理 NULL 全局配置-->
+        <!--<setting name="jdbcTypeForNull" value="NULL"/>-->
+
+        <!--SQL查询懒加载:用到的时候再执行相应的SQL-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <!--
+         typeAliases：别名处理器。
+         可以为 java 类型起别名(不区分大小写)；
+         若不写，则默认为类名首字母小写的简写
+    -->
+    <typeAliases>
+        <!--<typeAlias type="com.jaxer.example.domain.Employee" alias="employee"/>-->
+
+        <!-- 批量取别名，默认为类名首字母小写的简写，name 为包名
+             若遇到取名冲突（子包下有同名类），可以在类中用 @Alias 注解声明别名
+        -->
+        <package name="com.jaxer.example.domain"/>
+    </typeAliases>
+
+    <!--
+         environments: 可配置多种环境，default 指定某种环境（开发或测试）
+         environment 标签必须有
+            transactionManager: JDBC, MANAGED, 可自定义
+            dataSource: UNPOOLED, POOLED(使用连接池), JNDI, 可自定义
+
+         @see org.apache.ibatis.session.Configuration
+     -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--SQL映射文件(EmployeeMapper.xml)一定要注册到全局配置文件(mybatis-config.xml)中-->
+    <mappers>
+        <mapper resource="mapper/EmployeeMapper.xml"/>
+    </mappers>
+</configuration>
