@@ -1,6 +1,7 @@
 package com.jaxer.example;
 
 import com.jaxer.example.dao.EmployeeMapper;
+import com.jaxer.example.dao.EmployeeMapperAnnotation;
 import com.jaxer.example.domain.Employee;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -45,6 +46,7 @@ public class MyBatisTest {
         // 获取接口的实现类
         try {
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+            // FIXME: 18/08/2018 package 配置方式不行？？Invalid bound statement (not found)
             Employee employee = employeeMapper.getById(1);
             //class com.sun.proxy.$Proxy5，生成的代理对象
             System.out.println(employeeMapper.getClass());
@@ -52,6 +54,16 @@ public class MyBatisTest {
         } finally {
             sqlSession.close();
         }
+    }
+
+    @Test
+    public void test3() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeMapperAnnotation mapper = sqlSession.getMapper(EmployeeMapperAnnotation.class);
+        Employee employee = mapper.getById(1);
+        System.out.println(employee);
+        sqlSession.close();
     }
 
     /**

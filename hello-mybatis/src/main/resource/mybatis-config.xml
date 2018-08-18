@@ -2,7 +2,10 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<!--mybatis全局配置文件-->
+<!--
+    mybatis全局配置文件
+    注意：配置标签是有先后顺序的
+-->
 <configuration>
     <!--
         mybatis 可以使用 properties 来引入外部 properties 配置文件的内容；
@@ -63,8 +66,34 @@
         </environment>
     </environments>
 
+    <!--
+        databaseIdProvider：支持多数据库厂商
+            type="DB_VENDOR"：VendorDatabaseIdProvider
+            作用就是得到数据库厂商的标识(驱动 getDatabaseProductName())，
+            mybatis 就能根据数据库厂商标识来执行不同的sql; MySQL，Oracle，SQL Server,xxxx
+    -->
+    <databaseIdProvider type="DB_VENDOR">
+        <!-- 为不同的数据库厂商起别名，*Mapper.xml 文件中的 databaseId 对应此处的别名 -->
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>
+
     <!--SQL映射文件(EmployeeMapper.xml)一定要注册到全局配置文件(mybatis-config.xml)中-->
     <mappers>
+        <!--
+            mapper: 注册一个SQL映射
+                resource：引用类路径下的SQL映射文件；
+                url：引用网络路径或磁盘目录下的SQL映射文件；
+                class：引用 Java 接口
+                    1. 有SQL映射文件，映射文件名必须和接口同名，且在同一目录下；
+                    2. 无SQL映射文件，SQL语句在接口方法的注解中
+        -->
+
         <mapper resource="mapper/EmployeeMapper.xml"/>
+        <!--<mapper class="com.jaxer.example.dao.EmployeeMapperAnnotation"/>-->
+
+        <!--批量注册-->
+        <!--<package name="com.jaxer.example.dao"/>-->
     </mappers>
 </configuration>

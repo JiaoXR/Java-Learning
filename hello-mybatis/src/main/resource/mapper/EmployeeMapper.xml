@@ -9,9 +9,42 @@
     #{id}：从传递的参数中取出id值
 -->
 <mapper namespace="com.jaxer.example.dao.EmployeeMapper">
-    <select id="getById" resultType="Employee">
+    <select id="getById" resultType="Employee" databaseId="mysql">
         SELECT *
         FROM employee
         WHERE id = #{id}
     </select>
+
+    <select id="getByIdAndName" resultType="Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id} AND name = #{param2}
+    </select>
+
+    <select id="getByMap" resultType="Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id} AND name = #{name}
+    </select>
+
+    <!--
+        MySQL支持自增主键，配置如下：
+            useGeneratedKeys="true": 使用主键获取；
+            keyProperty="id": 指定对应的主键属性
+    -->
+    <insert id="insertEmp" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO employee (name, age, gender, dept_id)
+        VALUES (#{name}, #{age}, #{gender}, #{deptId})
+    </insert>
+
+    <update id="updateEmp">
+        UPDATE employee
+        SET name = #{name}, age = #{age}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEmp">
+        DELETE FROM employee
+        WHERE id = #{id}
+    </delete>
 </mapper>

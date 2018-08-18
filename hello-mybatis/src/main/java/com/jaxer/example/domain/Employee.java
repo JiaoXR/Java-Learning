@@ -1,6 +1,7 @@
 package com.jaxer.example.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * date 16/08/2018
  */
 @Data
+@NoArgsConstructor
 @Alias("Employee") //指定别名
 public class Employee {
     private Integer id;
@@ -22,4 +24,12 @@ public class Employee {
     private Integer deptId;
     private Date createTime;
     private Date updateTime;
+
+    public Employee(Integer id, String name, Integer age, Integer gender, Integer deptId) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.deptId = deptId;
+    }
 }
