@@ -97,9 +97,23 @@ public Employee getEmp(List<Integer> ids);
 
 取值：取出第一个 id 值：#{list[0]}
 
+####  取值方式比较
 
+- `#{}` 【多数情况下使用】
 
+以预编译的形式，将参数设置到 SQL 语句中，防止 SQL 注入；
 
+`#{}` 更多用法：
+
+规定参数的一些规则，javaType、jdbcType、resultMap、typeHandler、jdbcTypeName 等。
+
+jdbcType 通常需要在某种特定的条件下被设置：
+
+​	在数据为 null 的时候，有些数据库可能不能识别 MyBatis 对 null 的默认处理。比如 Oracle 会报错（jdbcType OTHER: 无效的类型；MyBatis 对 null 映射的是原生 JDBC 的 OTHER 类型）
+
+- `${}`
+
+取出的值直接拼装在 SQL 语句中，会有安全问题。
 
 
 

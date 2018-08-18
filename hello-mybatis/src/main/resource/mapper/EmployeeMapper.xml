@@ -18,7 +18,7 @@
     <select id="getByIdAndName" resultType="Employee">
         SELECT *
         FROM employee
-        WHERE id = #{id} AND name = #{param2}
+        WHERE id = #{id} AND name = #{param2, jdbcType=NULL}
     </select>
 
     <select id="getByMap" resultType="Employee">
