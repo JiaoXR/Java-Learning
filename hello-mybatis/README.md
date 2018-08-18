@@ -148,29 +148,29 @@ jdbcType 通常需要在某种特定的条件下被设置：
 封装级联属性，例如：
 
 ```xml
-<!--
-	封装级联属性，形式一：
--->
-<resultMap id="MyEmpDept" type="com.jaxer.example.domain.Employee">
-	<id column="id" property="id"/>
-	<result column="name" property="name"/>
-	<result column="gender" property="gender"/>
-	<result column="dept_id" property="dept.id"/>
-	<result column="dept_name" property="dept.deptName"/>
-</resultMap>
+    <!--
+        封装级联属性，形式一：
+    -->
+    <resultMap id="MyEmpDept" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="dept_id" property="dept.id"/>
+        <result column="dept_name" property="dept.deptName"/>
+    </resultMap>
 
-<!--
-	封装级联属性，形式二：
--->
-<resultMap id="MyEmpDept2" type="com.jaxer.example.domain.Employee">
-	<id column="id" property="id"/>
-	<result column="name" property="name"/>
-	<result column="gender" property="gender"/>
-	<association property="dept" javaType="com.jaxer.example.domain.Department">
-		<id column="dept_id" property="id"/>
-		<result column="dept_name" property="deptName"/>
-	</association>
-</resultMap>
+    <!--
+        封装级联属性，形式二：
+    -->
+    <resultMap id="MyEmpDept2" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <association property="dept" javaType="com.jaxer.example.domain.Department">
+            <id column="dept_id" property="id"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
 ```
 
 
