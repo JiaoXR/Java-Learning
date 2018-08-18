@@ -25,7 +25,7 @@
         <!--开启驼峰命名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--Oracle 处理 NULL 全局配置-->
-        <!--<setting name="jdbcTypeForNull" value="NULL"/>-->
+        <setting name="jdbcTypeForNull" value="NULL"/>
 
         <!--SQL查询懒加载:用到的时候再执行相应的SQL-->
         <setting name="lazyLoadingEnabled" value="true"/>
@@ -91,7 +91,7 @@
         -->
 
         <mapper resource="mapper/EmployeeMapper.xml"/>
-        <!--<mapper class="com.jaxer.example.dao.EmployeeMapperAnnotation"/>-->
+        <mapper class="com.jaxer.example.dao.EmployeeMapperAnnotation"/>
 
         <!--批量注册-->
         <!--<package name="com.jaxer.example.dao"/>-->

@@ -24,6 +24,7 @@ public class Employee {
     private Integer deptId;
     private Date createTime;
     private Date updateTime;
+    private Department dept;
 
     public Employee(Integer id, String name, Integer age, Integer gender, Integer deptId) {
         this.id = id;

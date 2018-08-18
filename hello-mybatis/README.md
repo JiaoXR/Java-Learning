@@ -97,23 +97,83 @@ public Employee getEmp(List<Integer> ids);
 
 取值：取出第一个 id 值：#{list[0]}
 
-####  取值方式比较
+###  取值方式比较
 
-- `#{}` 【多数情况下使用】
+####  `#{}` 【多数情况下使用】
 
 以预编译的形式，将参数设置到 SQL 语句中，防止 SQL 注入；
 
-`#{}` 更多用法：
+#####  `#{}` 更多用法：
 
 规定参数的一些规则，javaType、jdbcType、resultMap、typeHandler、jdbcTypeName 等。
 
 jdbcType 通常需要在某种特定的条件下被设置：
 
-​	在数据为 null 的时候，有些数据库可能不能识别 MyBatis 对 null 的默认处理。比如 Oracle 会报错（jdbcType OTHER: 无效的类型；MyBatis 对 null 映射的是原生 JDBC 的 OTHER 类型）
+​	在数据为 null 的时候，有些数据库可能不能识别 MyBatis 对 null 的默认处理。比如 Oracle 会报错（jdbcType OTHER: 无效的类型；MyBatis 对 null 映射的是原生 JDBC 的 OTHER 类型）。
 
-- `${}`
+#####  解决方法
+
+- `#{email, jdbcType=NULL}`
+- 全局配置 jdbcTypeForNull
+
+```xml
+<setting name="jdbcTypeForNull" value="NULL"/>
+```
+
+####  `${}`
 
 取出的值直接拼装在 SQL 语句中，会有安全问题。
+
+###  自定义返回结果集 resultMap
+
+示例代码：
+
+```xml
+<!--
+	封装自定义结果集
+-->
+<resultMap id="MyEmp" type="com.jaxer.example.domain.Employee">
+	<!--
+		id 标签：指定主键列的封装规则，底层有优化
+		column: 指定哪一列
+		property: 指定对应的 JavaBean 属性
+	-->
+	<id column="id" property="id"/>
+	<!-- 普通列封装规则 -->
+	<result column="name" property="name"/>
+    <!-- 其他未指定的列会自动封装，推荐把全部映射规则都封装好 -->
+</resultMap>
+```
+
+封装级联属性，例如：
+
+```xml
+<!--
+	封装级联属性，形式一：
+-->
+<resultMap id="MyEmpDept" type="com.jaxer.example.domain.Employee">
+	<id column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="gender" property="gender"/>
+	<result column="dept_id" property="dept.id"/>
+	<result column="dept_name" property="dept.deptName"/>
+</resultMap>
+
+<!--
+	封装级联属性，形式二：
+-->
+<resultMap id="MyEmpDept2" type="com.jaxer.example.domain.Employee">
+	<id column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="gender" property="gender"/>
+	<association property="dept" javaType="com.jaxer.example.domain.Department">
+		<id column="dept_id" property="id"/>
+		<result column="dept_name" property="deptName"/>
+	</association>
+</resultMap>
+```
+
+
 
 
 

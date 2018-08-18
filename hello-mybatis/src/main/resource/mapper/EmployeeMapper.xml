@@ -27,6 +27,77 @@
         WHERE id = #{id} AND name = #{name}
     </select>
 
+    <!-- 批量查询 -->
+    <select id="getByNameLike" resultType="employee">
+        SELECT *
+        FROM employee
+        WHERE name LIKE #{name}
+    </select>
+
+    <!-- 返回 Map 类型，单行数据 -->
+    <select id="getEmpMapById" resultType="map">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+
+    <select id="getEmpMapByNameLike" resultType="employee">
+        SELECT *
+        FROM employee
+        WHERE name LIKE #{name}
+    </select>
+
+    <!--
+        封装自定义结果集
+    -->
+    <resultMap id="MySimpleEmp" type="com.jaxer.example.domain.Employee">
+        <!--
+            id 标签：指定主键列的封装规则，底层有优化
+            column: 指定哪一列
+            property: 指定对应的 JavaBean 属性
+         -->
+        <id column="id" property="id"/>
+        <!-- 普通列封装规则 -->
+        <result column="name" property="name"/>
+        <!-- 其他未指定的列会自动封装，推荐把全部映射规则都封装好 -->
+    </resultMap>
+
+    <!--
+        封装级联属性，形式一：
+    -->
+    <resultMap id="MyEmpDept" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="dept_id" property="dept.id"/>
+        <result column="dept_name" property="dept.deptName"/>
+    </resultMap>
+
+    <!--
+        封装级联属性，形式二：
+    -->
+    <resultMap id="MyEmpDept2" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <association property="dept" javaType="com.jaxer.example.domain.Department">
+            <id column="dept_id" property="id"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <select id="getEmpAndDept" resultMap="MyEmpDept2">
+        SELECT
+            e.id        AS id,
+            e.name      AS name,
+            e.gender    AS gender,
+            d.id        AS dept_id,
+            d.dept_name AS dept_name
+        FROM employee AS e, department AS d
+        WHERE e.dept_id = d.id
+              AND e.id = #{id}
+    </select>
+
     <!--
         MySQL支持自增主键，配置如下：
             useGeneratedKeys="true": 使用主键获取；
