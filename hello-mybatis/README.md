@@ -171,6 +171,45 @@ jdbcType 通常需要在某种特定的条件下被设置：
             <result column="dept_name" property="deptName"/>
         </association>
     </resultMap>
+
+    <!--
+        封装级联属性，形式三：分步查询
+    -->
+    <resultMap id="MyEmpDept3" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+		<!-- 将 dept_id 作为 getById 查询的参数，并将结果封装到 dept  -->
+        <association property="dept" select="com.jaxer.example.dao.DepartmentMapper.getById" column="dept_id"/>
+    </resultMap>
+
+    <!-- 嵌套结果集的方式，使用 collection 标签定义关联的集合类型的属性封装规则 -->
+    <resultMap id="MyDeptAndEmpList" type="com.jaxer.example.domain.Department">
+        <id column="dept_id" property="id"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="employeeList" ofType="com.jaxer.example.domain.Employee">
+            <id column="emp_id" property="id"/>
+            <result column="emp_name" property="name"/>
+            <result column="emp_age" property="age"/>
+        </collection>
+    </resultMap>
+
+    <!-- 嵌套结果集，使用分步查询 -->
+    <resultMap id="MyDeptAndEmpList2" type="com.jaxer.example.domain.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="employeeList"
+                    select="com.jaxer.example.dao.EmployeeMapper.getEmpListByDeptId"
+                    column="id"/>
+    </resultMap>
+```
+
+分步查询可使用懒加载，需要在全局配置中配置，如下：
+
+```xml
+<!--SQL查询懒加载:级联查询中，用到的时候再执行相应的SQL，可减少查询次数；推荐显式配置-->
+<setting name="lazyLoadingEnabled" value="true"/>
+<setting name="aggressiveLazyLoading" value="false"/>
 ```
 
 

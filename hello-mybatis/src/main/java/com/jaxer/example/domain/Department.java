@@ -3,6 +3,7 @@ package com.jaxer.example.domain;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 部门表
@@ -14,6 +15,7 @@ import java.util.Date;
 public class Department {
     private Integer id;
     private String deptName;
+    private List<Employee> employeeList;
     private Date createTime;
     private Date updateTime;
 }

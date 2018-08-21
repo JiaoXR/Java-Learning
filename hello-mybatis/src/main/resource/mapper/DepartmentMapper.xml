@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaxer.example.dao.DepartmentMapper">
+    <resultMap id="department" type="com.jaxer.example.domain.Department"/>
+
+    <select id="getById" resultType="department">
+        SELECT *
+        FROM department
+        WHERE id = #{id}
+    </select>
+
+    <!-- 嵌套结果集的方式，使用 collection 标签定义关联的集合类型的属性封装规则 -->
+    <resultMap id="MyDeptAndEmpList" type="com.jaxer.example.domain.Department">
+        <id column="dept_id" property="id"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="employeeList" ofType="com.jaxer.example.domain.Employee">
+            <id column="emp_id" property="id"/>
+            <result column="emp_name" property="name"/>
+            <result column="emp_age" property="age"/>
+        </collection>
+    </resultMap>
+
+    <select id="getDeptAndEmpListById" resultMap="MyDeptAndEmpList">
+        SELECT
+            d.id        AS dept_id,
+            d.dept_name AS dept_name,
+            e.id        AS emp_id,
+            e.name      AS emp_name,
+            e.age       AS emp_age
+        FROM department AS d
+            LEFT JOIN employee AS e
+                ON d.id = e.dept_id
+        WHERE d.id = #{id}
+    </select>
+
+    <!-- 嵌套结果集，分步查询 -->
+    <resultMap id="MyDeptAndEmpList2" type="com.jaxer.example.domain.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="deptName"/>
+        <collection property="employeeList"
+                    select="com.jaxer.example.dao.EmployeeMapper.getEmpListByDeptId"
+                    column="id"
+                    fetchType="eager"/>
+    </resultMap>
+
+    <!-- 扩展：
+        传递多列的值：将多列的值封装Map传递
+        column="{key1=column1,key2=column2}"
+        fetchType: 默认 lazy, 延迟加载；eager 为立即加载
+     -->
+
+    <select id="getDeptAndEmpListByStep" resultMap="MyDeptAndEmpList2">
+        SELECT *
+        FROM department
+        WHERE id = #{id}
+    </select>
+
+</mapper>

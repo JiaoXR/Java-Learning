@@ -24,6 +24,8 @@ public interface EmployeeMapper {
 
     Employee getEmpAndDept(Integer id);
 
+    List<Employee> getEmpListByDeptId(Integer deptId);
+
     void insertEmp(Employee employee);
 
     Long updateEmp(Employee employee);

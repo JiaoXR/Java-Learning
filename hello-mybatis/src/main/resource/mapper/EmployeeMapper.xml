@@ -86,7 +86,18 @@
         </association>
     </resultMap>
 
-    <select id="getEmpAndDept" resultMap="MyEmpDept2">
+    <!--
+        封装级联属性，形式三：分步查询
+    -->
+    <resultMap id="MyEmpDept3" type="com.jaxer.example.domain.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <!-- 将 dept_id 作为 getById 查询的参数，并将结果封装到 dept  -->
+        <association property="dept" select="com.jaxer.example.dao.DepartmentMapper.getById" column="dept_id"/>
+    </resultMap>
+
+    <select id="getEmpAndDept" resultMap="MyEmpDept3">
         SELECT
             e.id        AS id,
             e.name      AS name,
@@ -96,6 +107,12 @@
         FROM employee AS e, department AS d
         WHERE e.dept_id = d.id
               AND e.id = #{id}
+    </select>
+
+    <select id="getEmpListByDeptId" resultType="Employee">
+        SELECT *
+        FROM employee
+        WHERE dept_id = #{deptId}
     </select>
 
     <!--
