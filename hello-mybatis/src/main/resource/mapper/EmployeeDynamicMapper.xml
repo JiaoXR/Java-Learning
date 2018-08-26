@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaxer.example.dao.EmployeeDynamicMapper">
+    <!--
+        动态SQL测试
+            if
+            choose(when, otherwise)
+            trim(where, set)
+            foreach
+
+        第一个参数为空时，会报错，解决方法
+            1. 原先的 WHERE 关键词后加 1=1
+            2. 使用 <where> 标签，where 只会去掉第一个多余的 AND 或 OR
+    -->
+    <!--    <select id="listEmpBy" resultType="com.jaxer.example.domain.Employee">
+            SELECT * FROM employee
+            <where>
+                <if test="id!=null">
+                    id = #{id}
+                </if>
+                <if test="name!=null and name!=''">
+                    AND name LIKE #{name}
+                </if>
+                <if test="age!=null">
+                    AND age = #{age}
+                </if>
+                <if test="gender==1 || gender==2">
+                    AND gender = #{gender}
+                </if>
+            </where>
+        </select>-->
+
+    <!--
+        trim 标签：添加/移除前后缀
+    -->
+    <!--    <select id="listEmpBy" resultType="com.jaxer.example.domain.Employee">
+            SELECT * FROM employee
+            <trim prefix="where" prefixOverrides="AND">
+                <if test="id!=null">
+                    id = #{id}
+                </if>
+                <if test="name!=null and name!=''">
+                    AND name LIKE #{name}
+                </if>
+                <if test="age!=null">
+                    AND age = #{age}
+                </if>
+                <if test="gender==1 || gender==2">
+                    AND gender = #{gender}
+                </if>
+            </trim>
+        </select>-->
+
+    <!--
+        choose 标签：用法类似于 switch...case，只会选择一个条件匹配
+            otherwise: 相当于 default
+    -->
+    <select id="listEmpBy" resultType="com.jaxer.example.domain.Employee">
+        SELECT * FROM employee
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id = #{id}
+                </when>
+                <when test="name!=null and name!=''">
+                    name LIKE #{name}
+                </when>
+                <when test="age!=null">
+                    age = #{age}
+                </when>
+                <when test="gender!=null">
+                    gender = #{gender}
+                </when>
+                <otherwise>
+                    1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--
+        更新标签：<set>，能自动取出多余的逗号
+        此处使用 trim 标签也可以
+    -->
+    <update id="updateEmp">
+        UPDATE employee
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="age!=null">
+                age = #{age}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--
+        collection 指定要遍历的集合
+        index：索引，遍历list时是索引；遍历map时是map的key
+    -->
+    <select id="getByIdList" resultType="employee">
+        SELECT *
+        FROM employee
+        WHERE id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--
+        或者也可以发送多条SQL，需要开启allowMultiQueries支持【了解】
+    -->
+    <insert id="insertEmps">
+        INSERT INTO employee(id, name, age, gender, dept_id)
+        VALUES
+        <foreach collection="empList" item="emp" separator=",">
+            (#{emp.id}, #{emp.name}, #{emp.age}, #{emp.gender}, #{emp.dept.id})
+        </foreach>
+    </insert>
+</mapper>

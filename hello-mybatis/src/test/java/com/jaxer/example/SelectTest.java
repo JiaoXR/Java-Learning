@@ -4,14 +4,10 @@ import com.jaxer.example.dao.DepartmentMapper;
 import com.jaxer.example.dao.EmployeeMapper;
 import com.jaxer.example.domain.Department;
 import com.jaxer.example.domain.Employee;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +17,7 @@ import java.util.Map;
  * @author jaxer
  * date 18/08/2018
  */
-public class SelectTest {
+public class SelectTest extends BaseTest {
     @Test
     public void getList() throws IOException {
         SqlSession sqlSession = getSqlSession();
@@ -67,13 +63,5 @@ public class SelectTest {
         DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
         Department department = mapper.getById(1);
         System.out.println(department);
-    }
-
-    private SqlSession getSqlSession() throws IOException {
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        // 开启自动提交
-        return sqlSessionFactory.openSession(true);
     }
 }

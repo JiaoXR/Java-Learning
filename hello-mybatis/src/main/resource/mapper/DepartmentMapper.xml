@@ -51,6 +51,13 @@
         fetchType: 默认 lazy, 延迟加载；eager 为立即加载
      -->
 
+    <!--
+        discriminator: 鉴别器【了解】，用于封装结果集
+            column：指定判定的类名；
+            javaType：列值对应的 Java 类型
+        PS: 感觉类似于 switch...case
+     -->
+
     <select id="getDeptAndEmpListByStep" resultMap="MyDeptAndEmpList2">
         SELECT *
         FROM department

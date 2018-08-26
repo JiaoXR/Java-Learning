@@ -93,6 +93,7 @@
         <mapper resource="mapper/EmployeeMapper.xml"/>
         <mapper class="com.jaxer.example.dao.EmployeeMapperAnnotation"/>
         <mapper resource="mapper/DepartmentMapper.xml"/>
+        <mapper resource="mapper/EmployeeDynamicMapper.xml"/>
 
         <!--批量注册-->
         <!--<package name="com.jaxer.example.dao"/>-->

@@ -3,14 +3,10 @@ package com.jaxer.example;
 import com.jaxer.example.dao.EmployeeMapper;
 import com.jaxer.example.dao.EmployeeMapperAnnotation;
 import com.jaxer.example.domain.Employee;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * 测试类
@@ -20,16 +16,14 @@ import java.io.InputStream;
  * @author jaxer
  * date 16/08/2018
  */
-public class MyBatisTest {
+public class MyBatisTest extends BaseTest {
     /**
      * 方式一
      */
     @Test
     public void test1() throws IOException {
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-
-        // 2. 获取SqlSession实例，能直接执行已经映射的SQL语句
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 获取SqlSession实例，能直接执行已经映射的SQL语句
+        SqlSession sqlSession = getSqlSession();
         // 唯一标识建议：命名空间+id【老版本的写法】
         Employee employee = sqlSession.selectOne("com.jaxer.example.dao.EmployeeMapper.getById", 1);
         System.out.println(employee);
@@ -41,8 +35,7 @@ public class MyBatisTest {
      */
     @Test
     public void test2() throws IOException {
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = getSqlSession();
         // 获取接口的实现类
         try {
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
@@ -58,21 +51,10 @@ public class MyBatisTest {
 
     @Test
     public void test3() throws IOException {
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = getSqlSession();
         EmployeeMapperAnnotation mapper = sqlSession.getMapper(EmployeeMapperAnnotation.class);
         Employee employee = mapper.getById(1);
         System.out.println(employee);
         sqlSession.close();
-    }
-
-    /**
-     * 根据XML配置文件，创建一个 SqlSessionFactory
-     */
-    private SqlSessionFactory getSqlSessionFactory() throws IOException {
-        // 1.根据XML配置文件，创建一个SqlSessionFactory
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        return new SqlSessionFactoryBuilder().build(inputStream);
     }
 }

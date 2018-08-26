@@ -2,14 +2,10 @@ package com.jaxer.example;
 
 import com.jaxer.example.dao.EmployeeMapper;
 import com.jaxer.example.domain.Employee;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +17,7 @@ import java.util.Map;
  * @author jaxer
  * date 18/08/2018
  */
-public class CRUDTest {
+public class CRUDTest extends BaseTest {
     @Test
     public void testInsert() throws IOException {
         SqlSession sqlSession = getSqlSession();
@@ -76,14 +72,5 @@ public class CRUDTest {
         System.out.println(integer);
         sqlSession.commit();
         sqlSession.close();
-    }
-
-    private SqlSession getSqlSession() throws IOException {
-        // 1.根据XML配置文件，创建一个SqlSessionFactory
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        // 注意这里获取的 SqlSession 不会提交，需要手动提交（commit）
-        return sqlSessionFactory.openSession();
     }
 }

@@ -212,9 +212,45 @@ jdbcType 通常需要在某种特定的条件下被设置：
 <setting name="aggressiveLazyLoading" value="false"/>
 ```
 
+###  动态 SQL
 
+- if (配合 where 标签)
 
+多条件查询，且有些可能为空时很适合。
 
+- choose(when, otherwise)
+
+分支选择，类似于 `switch...case` ，只会进入其中一个条件。
+
+otherwise: 相当于 default
+
+- trim(where, set)
+
+  - prefix
+
+  给拼装后的整个 SQL 加一个前缀；
+
+  - prefixOverrides
+
+  前缀覆盖：去掉整个字符串前面多余的字符；
+
+  - suffix
+
+  给拼装后的整个 SQL 加一个后缀；
+
+  - suffixOverrides
+
+  后缀覆盖：去掉整个字符串后面多余的字符；
+
+- set
+
+更新标签：\<set\>，能自动取出多余的逗号。
+
+也可以使用 \<trim\> 标签。
+
+- foreach
+  - collection 指定要遍历的集合
+  - index：索引，遍历list时是索引；遍历map时是map的key
 
 
 
