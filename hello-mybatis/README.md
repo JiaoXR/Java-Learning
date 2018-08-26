@@ -252,7 +252,55 @@ otherwise: 相当于 default
   - collection 指定要遍历的集合
   - index：索引，遍历list时是索引；遍历map时是map的key
 
+###  内置参数
 
+- _parameter: 代表整个参数
+  - 单个参数：_parameter 就是这个参数
+  - 多个参数：参数会被封装为一个map，_parameter代表这个map
+- _databaseId: 如果配置了databaseIdProvider标签
+  - _databaseId就是代表当前数据库的别名
+
+示例代码：
+
+```xaml
+	<select id="listEmpBy" resultType="employee">
+        <!-- 例如，这里可以根据不同的数据库执行不同的SQL -->
+        <if test="_databaseId=='mysql'">
+            SELECT *
+            FROM employee
+            <if test="_parameter!=null">
+                WHERE id = #{id}
+            </if>
+        </if>
+    </select>
+```
+
+- bind 标签【了解】
+
+绑定参数，示例代码：
+
+```xml
+	<select id="listEmpBy" resultType="employee">
+        <bind name="_lastName" value="'%'+lastName+'%'" />
+        <if test="_databaseId=='mysql'">
+            SELECT *
+            FROM employee
+            WHERE last_name LIKE #{_lastName}
+        </if>
+    </select>
+```
+
+- sql 标签
+
+用于抽取可复用的SQL片段，比如经常要查询/插入的列名。示例代码：
+
+ ```xml
+    <sql id="selectColumn">
+        id, name, age, gender, dept_id
+    </sql>
+ ```
+
+使用 \<include\> 标签引用，且 include 标签内可以新增自定义属性。
 
 
 

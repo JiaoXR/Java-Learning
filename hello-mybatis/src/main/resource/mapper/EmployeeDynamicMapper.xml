@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jaxer.example.dao.EmployeeDynamicMapper">
     <!--
+        sql 标签：用于抽取复用的SQL片段
+    -->
+    <sql id="selectColumn">
+        id, name, age, gender, dept_id
+    </sql>
+
+    <!--
         动态SQL测试
             if
             choose(when, otherwise)
@@ -58,7 +65,9 @@
             otherwise: 相当于 default
     -->
     <select id="listEmpBy" resultType="com.jaxer.example.domain.Employee">
-        SELECT * FROM employee
+        SELECT
+        <include refid="selectColumn"/>
+        FROM employee
         <where>
             <choose>
                 <when test="id!=null">
@@ -120,4 +129,22 @@
             (#{emp.id}, #{emp.name}, #{emp.age}, #{emp.gender}, #{emp.dept.id})
         </foreach>
     </insert>
+
+    <!-- 内置参数：
+            _parameter: 代表整个参数
+                单个参数：_parameter 就是这个参数
+                多个参数：参数会被封装为一个map，_parameter代表这个map
+            _databaseId: 如果配置了databaseIdProvider标签
+                _databaseId就是代表当前数据库的别名
+    -->
+    <!--    <select id="listEmpBy" resultType="employee">
+            &lt;!&ndash; 例如，这里可以根据不同的数据库执行不同的SQL &ndash;&gt;
+            <if test="_databaseId=='mysql'">
+                SELECT *
+                FROM employee
+                <if test="_parameter!=null">
+                    WHERE id = #{id}
+                </if>
+            </if>
+        </select>-->
 </mapper>

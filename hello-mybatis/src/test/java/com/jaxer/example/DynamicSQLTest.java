@@ -19,16 +19,16 @@ public class DynamicSQLTest extends BaseTest {
     public void test1() throws IOException {
         SqlSession sqlSession = getSqlSession();
         EmployeeDynamicMapper mapper = sqlSession.getMapper(EmployeeDynamicMapper.class);
-//        Employee employee = new Employee(2, "Luna", 24, null, null);
+        Employee employee = new Employee(2, "Luna", 24, null, null);
         // where/if/choose 标签
-//        List<Employee> employeeList = mapper.listEmpBy(employee);
-//        employeeList.forEach(System.out::println);
+        List<Employee> employeeList = mapper.listEmpBy(employee);
+        employeeList.forEach(System.out::println);
 
         // set 标签
 //        mapper.updateEmp(employee);
 
-        List<Employee> employeeList = mapper.getByIdList(Arrays.asList(1, 2, 3, 5));
-        employeeList.forEach(System.out::println);
+//        List<Employee> employeeList = mapper.getByIdList(Arrays.asList(1, 2, 3, 5));
+//        employeeList.forEach(System.out::println);
     }
 
     @Test
