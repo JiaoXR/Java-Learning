@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +16,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Alias("Employee") //指定别名
-public class Employee {
+public class Employee implements Serializable {
+    private static final long serialVersionUID = 3634104982730363724L;
     private Integer id;
     private String name;
     private Integer age;

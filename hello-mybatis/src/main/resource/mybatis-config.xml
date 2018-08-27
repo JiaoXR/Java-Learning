@@ -30,6 +30,7 @@
         <!--SQL查询懒加载:级联查询中，用到的时候再执行相应的SQL，可减少查询次数；推荐显式配置-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
     <!--
@@ -94,6 +95,7 @@
         <mapper class="com.jaxer.example.dao.EmployeeMapperAnnotation"/>
         <mapper resource="mapper/DepartmentMapper.xml"/>
         <mapper resource="mapper/EmployeeDynamicMapper.xml"/>
+        <mapper resource="mapper/EmployeeCacheMapper.xml"/>
 
         <!--批量注册-->
         <!--<package name="com.jaxer.example.dao"/>-->

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaxer.example.dao.EmployeeCacheMapper">
+    <!-- 开启二级缓存
+            eviction：缓存回收策略
+                LRU：最近最少使用，移除最长时间不被使用的对象
+                FIFO：先进先出
+                SOFT：软引用，移除基于垃圾回收器状态和软引用规则的对象；
+                WEAK：弱引用，更积极地移除基于垃圾收集器状态和弱引用规则的对象；
+                默认是LRU
+            flushInterval：缓存刷新间隔
+                默认不清空，单位：毫秒
+            readOnly：是否只读
+                true：只读，MyBatis 认为所有从缓存中获取数据的操作都是只读操作；
+                    MyBatis 为了提高速度，直接将数据在缓存中的引用交给用户。
+                    不安全，速度快。
+                false：非只读
+                    MyBatis 会使用序列化&反序列化的技术克隆一份新的数据；
+                    安全，速度稍慢，默认。
+            size：缓存存放多少元素；
+            type：指定自定义缓存的全类名；可实现 Cache 接口自定义。
+    -->
+    <cache eviction="LRU" flushInterval="50000" readOnly="false" size="1024"/>
+
+    <select id="getEmpById" resultType="com.jaxer.example.domain.Employee">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+</mapper>

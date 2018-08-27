@@ -302,7 +302,84 @@ otherwise: 相当于 default
 
 使用 \<include\> 标签引用，且 include 标签内可以新增自定义属性。
 
+##  缓存机制
 
+MyBatis 默认定义了两级缓存：一级缓存和二级缓存。
+
+###  一级缓存（本地缓存）
+
+与数据库同一次会话期间查询到的数据会放在本地缓存中，以后如果需要获取相同的数据，直接从缓存中取。
+
+默认情况下，只有一级缓存（SqlSession 级别的缓存，也称本地缓存）是一直开启的。
+
+####  缓存失效
+
+1. SqlSession 发生改变；
+2. SqlSession 不变，查询条件改变（当前一级缓存中还没有这个数据）；
+3. SqlSession 不变，但两次查询之间执行过增删改操作（这些操作可能对当前数据有影响）；
+4. SqlSession 不变，但两次查询之间手动清空了缓存。
+
+###  二级缓存（全局缓存）
+
+基于 namespace 级别的缓存（全局缓存），每个 namespace 对应一个二级缓存。为提高扩展性，MyBatis 定义了缓存接口 Cache，可自定义二级缓存。
+
+使用步骤：
+
+1. 开启全局二级缓存配置：`<setting name="cacheEnabled" value="true"/>` ；
+2. `**mapper.xml` 文件中配置使用二级缓存：`<cache></cache>` ；
+3. POJO 需要实现序列化接口；
+
+示例代码：
+
+```xml
+    <!-- 开启二级缓存
+            eviction：缓存回收策略
+                LRU：最近最少使用，移除最长时间不被使用的对象
+                FIFO：先进先出
+                SOFT：软引用，移除基于垃圾回收器状态和软引用规则的对象；
+                WEAK：弱引用，更积极地移除基于垃圾收集器状态和弱引用规则的对象；
+                默认是LRU
+            flushInterval：缓存刷新间隔
+                默认不清空，单位：毫秒
+            readOnly：是否只读
+                true：只读，MyBatis 认为所有从缓存中获取数据的操作都是只读操作；
+                    MyBatis 为了提高速度，直接将数据在缓存中的引用交给用户。
+                    不安全，速度快。
+                false：非只读
+                    MyBatis 会使用序列化&反序列化的技术克隆一份新的数据；
+                    安全，速度稍慢，默认。
+            size：缓存存放多少元素；
+            type：指定自定义缓存的全类名；可实现 Cache 接口自定义。
+    -->
+    <cache eviction="LRU" flushInterval="50000" readOnly="false" size="1024"/>
+```
+
+> 注意：
+>
+> - 查询数据默认会被先放到一级缓存中；
+> - 只有会话提交或关闭之后，数据才会从一级缓存转移到二级缓存中。
+
+###  缓存相关属性
+
+- cacheEnabled
+
+若设置关闭 `<setting name="cacheEnabled" value="false"/>`，关闭的是二级缓存，一级缓存可用。
+
+- useCache
+
+ \<select\> 标签的 useCache 属性，若设置为 false，则关闭的是二级缓存，一级缓存不影响。
+
+- flushCache
+
+增删改标签的 flushCache 属性，若设置为 true，一级和二级缓存会清空。
+
+- sqlSession.clearCache
+
+只清除当前 Session 的一级缓存。
+
+- localCacheScope
+
+本地缓存作用域，默认是一级缓存 Session，当前会话的所有数据保存在会话缓存中。
 
 
 
