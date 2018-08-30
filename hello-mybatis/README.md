@@ -381,5 +381,8 @@ MyBatis 默认定义了两级缓存：一级缓存和二级缓存。
 
 本地缓存作用域，默认是一级缓存 Session，当前会话的所有数据保存在会话缓存中。
 
+##  MyBatis 逆向工程
 
+MyBatis Generator，简称 MBG。
 
+官网链接：http://www.mybatis.org/generator/
