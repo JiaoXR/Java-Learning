@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaxer.example.dao.EmployeeMapper">
+    <resultMap id="employeeResultMap" type="com.jaxer.example.bean.Employee">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="SMALLINT"/>
+        <association property="department" javaType="com.jaxer.example.bean.Department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <select id="getById" resultMap="employeeResultMap">
+        SELECT *
+        FROM employee
+        WHERE id = #{id}
+    </select>
+</mapper>
