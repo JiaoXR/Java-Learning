@@ -14,8 +14,12 @@ import java.util.Date;
 public class Employee {
     private Integer id;
     private String name;
-    private Integer age;
-    private Department department;
+
+    private Short age;
+
+    private Integer deptId;
+
     private Date createTime;
+
     private Date updateTime;
 }
