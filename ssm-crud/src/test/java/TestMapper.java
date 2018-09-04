@@ -21,7 +21,7 @@ public class TestMapper {
 
     @Test
     public void test() {
-        Employee employee = employeeMapper.getById(1);
+        Employee employee = employeeMapper.selectByPrimaryKey(1);
         System.out.println(employee);
     }
 }
