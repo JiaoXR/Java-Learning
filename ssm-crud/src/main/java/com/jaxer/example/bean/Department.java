@@ -1,9 +1,10 @@
 package com.jaxer.example.bean;
 
+import com.jaxer.example.util.DateUtil;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author jaxer
@@ -14,5 +15,9 @@ import java.util.Date;
 public class Department {
     private Integer id;
     private String name;
-    private Date createTime;
+    private LocalDateTime createTime;
+
+    public String getCreateTime() {
+        return DateUtil.formatDateTime(createTime);
+    }
 }

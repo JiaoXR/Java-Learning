@@ -2,6 +2,7 @@ package com.jaxer.example.dao;
 
 import com.jaxer.example.bean.Employee;
 import com.jaxer.example.bean.EmployeeExample;
+import com.jaxer.example.criteria.PagedCriteria;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public interface EmployeeMapper {
     List<Employee> selectByExample(EmployeeExample example);
 
     Employee selectByPrimaryKey(Integer id);
+
+    List<Employee> getAll(PagedCriteria pagedCriteria);
+
+    Integer countAll();
 
     int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
