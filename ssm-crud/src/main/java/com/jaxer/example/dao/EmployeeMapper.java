@@ -14,7 +14,7 @@ public interface EmployeeMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Employee record);
+    int insert(Employee employee);
 
     int insertSelective(Employee record);
 

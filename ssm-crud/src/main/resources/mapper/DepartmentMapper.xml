@@ -100,10 +100,9 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.jaxer.example.bean.Department">
-        INSERT INTO department (id, name, create_time
-        )
-        VALUES (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-        )
+        INSERT INTO department (id, name, create_time)
+        VALUES
+            (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, NOW())
     </insert>
     <insert id="insertSelective" parameterType="com.jaxer.example.bean.Department">
         insert into department
@@ -180,4 +179,10 @@
             create_time = #{createTime,jdbcType=TIMESTAMP}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="getAll" resultType="com.jaxer.example.bean.Department">
+        SELECT *
+        FROM department
+        ORDER BY id DESC
+    </select>
 </mapper>

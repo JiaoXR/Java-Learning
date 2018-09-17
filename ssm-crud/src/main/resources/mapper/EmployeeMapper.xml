@@ -103,12 +103,11 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.jaxer.example.bean.Employee">
-        INSERT INTO employee (id, name, age,
-                              dept_id, create_time, update_time
-        )
-        VALUES (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=SMALLINT},
-                #{deptId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-        )
+        INSERT INTO employee (name, age, dept_id, create_time, update_time)
+        VALUES
+            (#{name,jdbcType=VARCHAR}, #{age,jdbcType=SMALLINT},
+             #{deptId,jdbcType=INTEGER}, NOW(), NOW()
+            )
     </insert>
     <insert id="insertSelective" parameterType="com.jaxer.example.bean.Employee">
         insert into employee
@@ -262,7 +261,7 @@
             LEFT JOIN department AS d
                 ON e.dept_id = d.id
         ORDER BY e.id DESC
-        LIMIT ${startPos}, ${pageSize}
+        LIMIT #{startPos}, #{pageSize}
     </select>
 
     <select id="countAll" resultType="int">

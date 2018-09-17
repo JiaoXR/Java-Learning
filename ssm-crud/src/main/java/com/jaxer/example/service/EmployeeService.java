@@ -25,4 +25,8 @@ public class EmployeeService {
     public Integer countAll() {
         return employeeMapper.countAll();
     }
+
+    public void insert(Employee employee) {
+        employeeMapper.insert(employee);
+    }
 }

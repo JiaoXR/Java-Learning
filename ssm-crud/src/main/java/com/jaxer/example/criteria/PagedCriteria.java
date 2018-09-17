@@ -18,6 +18,13 @@ public class PagedCriteria extends Criteria {
     protected Integer startPos = (pageNo - 1) * pageSize;
     protected Integer total = 0;
     protected Integer currentPage = (startPos / pageSize + startPos % pageSize);
-    protected Integer totalPages = (total / pageSize + total % pageSize);
+    protected Integer totalPages = 1;
     protected Collection data;
+
+    public Integer getTotalPages() {
+        if (total % pageSize == 0) {
+            return total / pageSize;
+        }
+        return total / pageSize + 1;
+    }
 }
