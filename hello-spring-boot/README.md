@@ -16,6 +16,24 @@
 
 `@ImportResource`
 
+- 配置文件占位符
+  - ${random.uuid}
+  - ${random.int}
+
+###  Profile
+
+- 多profile文件格式
+- 多文档块
+
+###  配置文件加载位置
+
+1. file:./config/
+2. file:./
+3. classpath:/config/
+4. classpath:./
+
+优先级由高到低，高优先级会覆盖低优先级。
+
 
 
 

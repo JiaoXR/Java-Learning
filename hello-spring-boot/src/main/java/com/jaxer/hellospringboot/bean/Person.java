@@ -11,6 +11,8 @@ import java.util.Map;
  * 测试 yml 属性配置
  * 使用 ConfigurationProperties 读取全局配置文件内容
  * <p>
+ * PS: 若 application.properties 与 application.yml 文件都存在，经测试，读取的是前者
+ * <p>
  * Created by jaxer on 23/09/2018
  */
 @Data
