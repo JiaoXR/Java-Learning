@@ -6,3 +6,8 @@ person:
   age: 28
   map: {k1: v1, k2: v2}
   list: [a1, a2]
+
+dog:
+  name: 大黄
+  age: 3
+  gender: 1

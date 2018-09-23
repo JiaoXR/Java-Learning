@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 测试 yml 属性配置
+ * 使用 ConfigurationProperties 读取全局配置文件内容
  * <p>
  * Created by jaxer on 23/09/2018
  */
