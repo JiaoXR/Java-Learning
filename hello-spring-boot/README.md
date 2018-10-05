@@ -66,3 +66,50 @@
 
 > https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/reference/htmlsingle/#boot-features-custom-log-configuration
 
+####  自动配置
+
+`org.springframework.boot.autoconfigure.web` : Web 所有的自动配置场景。
+
+####  全面接管 SpringMVC
+
+- `@EnableWebMvc` 注解
+
+失效原因代码：
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+@Import(DelegatingWebMvcConfiguration.class)
+public @interface EnableWebMvc {
+}
+```
+
+```java
+@Configuration
+public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
+```
+
+```java
+@Configuration
+@ConditionalOnWebApplication(type = Type.SERVLET)
+@ConditionalOnClass({ Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class })
+@ConditionalOnMissingBean(WebMvcConfigurationSupport.class)
+@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE + 10)
+@AutoConfigureAfter({ DispatcherServletAutoConfiguration.class,
+		ValidationAutoConfiguration.class })
+public class WebMvcAutoConfiguration 
+```
+
+即：自动配置类（`WebMvcAutoConfiguration`）在 `WebMvcConfigurationSupport` 类不存在时才生效，而 `@EnableWebMvc` 注解导入了
+
+ `WebMvcConfigurationSupport` 类。
+
+####  国际化
+
+`MessageSourceAutoConfiguration`
+
+ 
+
+
+
