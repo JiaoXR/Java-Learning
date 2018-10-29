@@ -1,0 +1,22 @@
+server:
+  port: 8001
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml   # MyBatis配置文件路径
+  type-aliases-package: com.jaxer.example.domain          # Entity别名类所在包
+  mapper-locations: classpath:mybatis/mapper/**/*.xml     # Mapper文件所在路径
+
+spring:
+  application:
+    name: microservice-cloud-dept   # 对外暴露的微服务名称
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    # 当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver      # MySQL驱动
+    url: jdbc:mysql://localhost:3306/               # 数据库名称
+    username: root
+    password: hello
+    dbcp2:
+      min-idle: 5               # 数据库连接池的最小维持连接数
+      initial-size: 5           # 初始化连接数
+      max-total: 5              # 最大连接数
+      max-wait-millis: 200      # 等待连接获取的最大超时时间
