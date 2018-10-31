@@ -10,12 +10,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>microservice-cloud-provider-dept-8001</artifactId>
+    <description>部门微服务生产者</description>
 
     <dependencies>
         <dependency>
             <groupId>com.jaxer.example</groupId>
             <artifactId>microservice-cloud-api</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -54,12 +64,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>springloaded</artifactId>
-            <version>1.2.8.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <version>2.0.6.RELEASE</version>
         </dependency>
     </dependencies>
 
