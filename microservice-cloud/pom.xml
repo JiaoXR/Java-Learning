@@ -21,7 +21,7 @@
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.18.0</lombok.version>
-        <springboot.version>1.5.10.RELEASE</springboot.version>
+        <springboot.version>1.5.9.RELEASE</springboot.version>
     </properties>
 
     <dependencyManagement>

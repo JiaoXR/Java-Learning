@@ -16,6 +16,16 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptDAO deptDAO;
 
+    @Override
+    public boolean insert(Dept dept) {
+        return deptDAO.insert(dept);
+    }
+
+    @Override
+    public Dept findById(Integer id) {
+        return deptDAO.findById(id);
+    }
+
     public List<Dept> findAll() {
         return deptDAO.findAll();
     }

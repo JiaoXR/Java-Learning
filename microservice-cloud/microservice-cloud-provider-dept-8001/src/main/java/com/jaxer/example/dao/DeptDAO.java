@@ -10,5 +10,9 @@ import java.util.List;
  */
 @Mapper
 public interface DeptDAO {
+    boolean insert(Dept dept);
+
+    Dept findById(Integer id);
+
     List<Dept> findAll();
 }
