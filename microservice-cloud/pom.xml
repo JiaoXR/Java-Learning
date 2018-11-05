@@ -23,6 +23,7 @@
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.18.0</lombok.version>
         <springboot.version>2.1.0.RELEASE</springboot.version>
+        <starter.version>1.4.5.RELEASE</starter.version>
     </properties>
 
     <dependencyManagement>
