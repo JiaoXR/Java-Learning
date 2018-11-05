@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 /**
  * 消费者Controller
  * <p>
@@ -27,5 +29,11 @@ public class DeptConsumerController {
     @RequestMapping(value = "consumer/dept/get/{id}")
     public Dept findById(@PathVariable("id") Integer id) {
         return restTemplate.getForObject(PROVIDER_PREFIX + "dept/" + id, Dept.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "consumer/dept/list")
+    public List<Dept> findAll() {
+        return restTemplate.getForObject(PROVIDER_PREFIX + "dept/list", List.class);
     }
 }
