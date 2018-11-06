@@ -28,3 +28,9 @@ eureka:
   instance:   #自定义微服务名称
     instance-id: microservice-cloud-dept-8001
     prefer-ip-address: true   #访问路径可显示IP地址
+
+info:
+  app.name: microservice-cloud
+  company.name: www.jaxer.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}

@@ -36,4 +36,12 @@ public class DeptConsumerController {
     public List<Dept> findAll() {
         return restTemplate.getForObject(PROVIDER_PREFIX + "dept/list", List.class);
     }
+
+    /**
+     * 测试服务发现
+     */
+    @RequestMapping(value = "consumer/dept/discovery")
+    public Object discovery() {
+        return restTemplate.getForObject(PROVIDER_PREFIX + "dept/discovery", Object.class);
+    }
 }
