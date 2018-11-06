@@ -24,7 +24,7 @@ spring:
 eureka:
   client:   #客户端注册到eureka服务列表内
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   instance:   #自定义微服务名称
     instance-id: microservice-cloud-dept-8001
     prefer-ip-address: true   #访问路径可显示IP地址
@@ -32,5 +32,5 @@ eureka:
 info:
   app.name: microservice-cloud
   company.name: www.jaxer.com
-  build.artifactId: microservice-cloud-provider-dept-8001
-  build.version: 1.0-SNAPSHOT
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
