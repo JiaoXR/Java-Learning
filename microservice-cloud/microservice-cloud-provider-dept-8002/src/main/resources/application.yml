@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml   # MyBatis配置文件路径
@@ -12,7 +12,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource    # 当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver      # MySQL驱动
-    url: jdbc:mysql://localhost:3306/cloud-01?useSSL=true&useUnicode=true&characterEncoding=utf8       # 数据库名称
+    url: jdbc:mysql://localhost:3306/cloud-02?useSSL=true&useUnicode=true&characterEncoding=utf8       # 数据库名称
     username: root
     password: hello
     dbcp2:
@@ -26,11 +26,11 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   instance:   #自定义微服务名称
-    instance-id: microservice-cloud-dept-8001
+    instance-id: microservice-cloud-dept-8002
     prefer-ip-address: true   #访问路径可显示IP地址
 
 info:
   app.name: microservice-cloud
   company.name: www.jaxer.com
-  build.artifactId: microservice-cloud-provider-dept-8001
-  build.version: 1.0-SNAPSHOT
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}

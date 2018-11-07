@@ -16,7 +16,8 @@ import java.util.List;
  */
 @RestController
 public class DeptConsumerController {
-    private static final String PROVIDER_PREFIX = "http://localhost:8001/";
+    //    private static final String PROVIDER_PREFIX = "http://localhost:8001/";
+    private static final String PROVIDER_PREFIX = "http://MICROSERVICE-CLOUD-DEPT/"; //通过微服务访问
 
     @Autowired
     private RestTemplate restTemplate;

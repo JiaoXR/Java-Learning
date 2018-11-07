@@ -20,3 +20,6 @@ Eureka 自我保护机制：若某时刻一个微服务不可用，eureka 仍会
   - ZooKeeper: 保证 CP
   - Eureka 可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像 ZooKeeper 那样使得整个服务瘫痪。
 
+- Ribbon
+
+基于 Netflix Ribbon 实现的一套客户端+负载均衡的工具。

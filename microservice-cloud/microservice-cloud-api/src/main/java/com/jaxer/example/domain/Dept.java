@@ -17,6 +17,7 @@ import java.util.Date;
 public class Dept {
     private Integer id;
     private String name;
+    private Integer db;
     private Date createTime;
     private Date updateTime;
 }

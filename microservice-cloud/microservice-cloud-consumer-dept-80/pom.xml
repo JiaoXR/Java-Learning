@@ -18,9 +18,15 @@
             <artifactId>microservice-cloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--Ribbon相关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
+            <version>${starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
             <version>${starter.version}</version>
         </dependency>
         <dependency>

@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>microservice-cloud-provider-dept-8001</artifactId>
-    <description>部门微服务生产者1</description>
+    <artifactId>microservice-cloud-provider-dept-8002</artifactId>
+    <description>部门微服务生产者2</description>
 
     <dependencies>
         <dependency>
