@@ -19,4 +19,10 @@ public class Config {
         return new RestTemplate();
     }
 
+//    @Bean
+//    public IRule myRule() {
+//        //负载均衡算法修改：使用随机算法替代默认的轮询算法
+////        return new RandomRule();
+//        return new RetryRule();
+//    }
 }
