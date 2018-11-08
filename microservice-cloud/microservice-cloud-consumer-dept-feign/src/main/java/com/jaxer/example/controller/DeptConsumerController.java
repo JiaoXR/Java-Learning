@@ -1,11 +1,11 @@
 package com.jaxer.example.controller;
 
 import com.jaxer.example.domain.Dept;
+import com.jaxer.example.service.DeptClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -16,33 +16,21 @@ import java.util.List;
  */
 @RestController
 public class DeptConsumerController {
-    //    private static final String PROVIDER_PREFIX = "http://localhost:8001/";
-    private static final String PROVIDER_PREFIX = "http://MICROSERVICE-CLOUD-DEPT/"; //通过微服务访问
-
     @Autowired
-    private RestTemplate restTemplate;
+    private DeptClientService clientService;
 
-    @RequestMapping(value = "consumer/dept/add")
-    public boolean add(Dept dept) {
-        return restTemplate.postForObject(PROVIDER_PREFIX + "dept/add", dept, Boolean.class);
+    @RequestMapping(value = "/consumer/dept/add", method = RequestMethod.POST)
+    boolean insert(Dept dept) {
+        return clientService.insert(dept);
     }
 
-    @RequestMapping(value = "consumer/dept/get/{id}")
-    public Dept findById(@PathVariable("id") Integer id) {
-        return restTemplate.getForObject(PROVIDER_PREFIX + "dept/" + id, Dept.class);
+    @RequestMapping(value = "/consumer/dept/{id}", method = RequestMethod.GET)
+    Dept findById(Integer id) {
+        return clientService.findById(id);
     }
 
-    @SuppressWarnings("unchecked")
-    @RequestMapping(value = "consumer/dept/list")
-    public List<Dept> findAll() {
-        return restTemplate.getForObject(PROVIDER_PREFIX + "dept/list", List.class);
-    }
-
-    /**
-     * 测试服务发现
-     */
-    @RequestMapping(value = "consumer/dept/discovery")
-    public Object discovery() {
-        return restTemplate.getForObject(PROVIDER_PREFIX + "dept/discovery", Object.class);
+    @RequestMapping(value = "/consumer/dept/list", method = RequestMethod.GET)
+    List<Dept> findAll() {
+        return clientService.findAll();
     }
 }

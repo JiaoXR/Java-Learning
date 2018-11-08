@@ -13,8 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaClient
 @EnableFeignClients(basePackages = {"com.jaxer.example"})
 @ComponentScan("com.jaxer.example")
-public class DeptConsumerApp {
+public class DeptConsumerAppFeign {
     public static void main(String[] args) {
-        SpringApplication.run(DeptConsumerApp.class, args);
+        SpringApplication.run(DeptConsumerAppFeign.class, args);
     }
 }

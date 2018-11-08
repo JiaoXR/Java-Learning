@@ -23,3 +23,32 @@ Eureka 自我保护机制：若某时刻一个微服务不可用，eureka 仍会
 - Ribbon
 
 基于 Netflix Ribbon 实现的一套客户端+负载均衡的工具。
+
+```java
+//开启负载均衡
+@LoadBalanced
+
+//自定义负载均衡算法
+@RibbonClient(name = "MICROSERVICE-CLOUD-DEPT", configuration = MyRule.class)
+
+//负载均衡算法接口
+public interface IRule {
+	//...  
+}
+```
+
+- Feign
+
+“接口 + 注解”的客户端负载均衡工具。
+
+```java
+@FeignClient(value = "MICROSERVICE-CLOUD-DEPT")
+
+@EnableFeignClients
+@ComponentScan
+```
+
+
+
+
+
