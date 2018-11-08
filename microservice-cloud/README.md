@@ -48,7 +48,9 @@ public interface IRule {
 @ComponentScan
 ```
 
+- Hystrix
 
+用于处理分布式系统的延迟和容错。保证在一个依赖出问题的情况下，不会导致整体服务失败，避免级联故障，提高分布式系统的弹性（类似保险丝）。
 
 
 
