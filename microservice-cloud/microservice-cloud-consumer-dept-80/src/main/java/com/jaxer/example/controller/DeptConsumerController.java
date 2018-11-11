@@ -27,7 +27,7 @@ public class DeptConsumerController {
         return restTemplate.postForObject(PROVIDER_PREFIX + "dept/add", dept, Boolean.class);
     }
 
-    @RequestMapping(value = "consumer/dept/get/{id}")
+    @RequestMapping(value = "consumer/dept/{id}")
     public Dept findById(@PathVariable("id") Integer id) {
         return restTemplate.getForObject(PROVIDER_PREFIX + "dept/" + id, Dept.class);
     }

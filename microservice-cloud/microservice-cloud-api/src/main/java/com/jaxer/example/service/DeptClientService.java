@@ -12,7 +12,8 @@ import java.util.List;
  * <p>
  * Created by jaxer on 2018/11/8
  */
-@FeignClient(value = "MICROSERVICE-CLOUD-DEPT")
+//@FeignClient(value = "MICROSERVICE-CLOUD-DEPT")
+@FeignClient(value = "MICROSERVICE-CLOUD-DEPT", fallback = DeptClientServiceFallbackFactory.class)
 public interface DeptClientService {
     @RequestMapping(value = "/dept/add", method = RequestMethod.POST)
     boolean insert(Dept dept);

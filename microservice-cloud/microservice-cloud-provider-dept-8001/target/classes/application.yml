@@ -32,5 +32,5 @@ eureka:
 info:
   app.name: microservice-cloud
   company.name: www.jaxer.com
-  build.artifactId: microservice-cloud-provider-dept-8001
-  build.version: 1.0-SNAPSHOT
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}

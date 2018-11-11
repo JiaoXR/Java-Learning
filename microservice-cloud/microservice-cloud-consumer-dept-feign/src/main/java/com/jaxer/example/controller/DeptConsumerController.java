@@ -3,6 +3,7 @@ package com.jaxer.example.controller;
 import com.jaxer.example.domain.Dept;
 import com.jaxer.example.service.DeptClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,17 +21,19 @@ public class DeptConsumerController {
     private DeptClientService clientService;
 
     @RequestMapping(value = "/consumer/dept/add", method = RequestMethod.POST)
-    boolean insert(Dept dept) {
+    public boolean insert(Dept dept) {
         return clientService.insert(dept);
     }
 
     @RequestMapping(value = "/consumer/dept/{id}", method = RequestMethod.GET)
-    Dept findById(Integer id) {
+    public Dept findById(@PathVariable("id") Integer id) {
+        // FIXME: 2018/11/11
+        // java.net.URISyntaxException: Illegal character in path at index 36: http://MICROSERVICE-CLOUD-DEPT/dept/{id}
         return clientService.findById(id);
     }
 
     @RequestMapping(value = "/consumer/dept/list", method = RequestMethod.GET)
-    List<Dept> findAll() {
+    public List<Dept> findAll() {
         return clientService.findAll();
     }
 }
