@@ -85,5 +85,16 @@ http://localhost:8001/hystrix.stream
 404 ??
 
 - Zuul
+  - 包含了对请求的路由和过滤两个最重要的功能。
+  - Zuul 和 Eureka 整合，将 Zuul自身注册为 Eureka 服务治理下的应用，同时从 Eureka 中获得其他微服务的消息，即，以后的访问微服务都是通过 Zuul 跳转后获得。
+- 通过网关 Zuul 访问微服务
+  - 原始：http://muzuul.com:9527/microservice-cloud-dept/dept/list
+  - 添加映射(映射为 `mydept` )：http://muzuul.com:9527/mydept/dept/2
+  - 添加前缀(前缀为 `ace`)：http://muzuul.com:9527/ace/mydept/dept/2
 
-包含了对请求的路由和过滤两个最重要的功能。
+注意微服务名大小写！
+
+
+
+
+
