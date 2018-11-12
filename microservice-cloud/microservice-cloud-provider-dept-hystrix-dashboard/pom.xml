@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>microservice-cloud-consumer-dept-80</artifactId>
-    <description>部门微服务消费者</description>
+    <artifactId>microservice-cloud-provider-dept-hystrix-dashboard</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,7 +17,6 @@
             <artifactId>microservice-cloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--Ribbon相关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
@@ -38,10 +36,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- 修改后立即生效，热部署 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>${starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+            <version>${starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+            <version>${starter.version}</version>
         </dependency>
     </dependencies>
 </project>

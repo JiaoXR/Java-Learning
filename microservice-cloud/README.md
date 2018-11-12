@@ -68,5 +68,22 @@ public class DeptClientServiceFallback implements FallbackFactory<DeptClientServ
 
 准实时的调用监控
 
+```java
+@EnableHystrixDashboard
+```
 
+```xml
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+	<version>${starter.version}</version>
+</dependency>
+```
 
+http://localhost:8001/hystrix.stream
+
+404 ??
+
+- Zuul
+
+包含了对请求的路由和过滤两个最重要的功能。
