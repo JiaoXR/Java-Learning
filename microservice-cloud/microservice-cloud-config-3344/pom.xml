@@ -9,18 +9,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>microservice-cloud-zuul-gateway-9527</artifactId>
+    <artifactId>microservice-cloud-config-3344</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.jaxer.example</groupId>
-            <artifactId>microservice-cloud-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!-- zuul路由网关 -->
+        <!-- SpringCloud Config -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zuul</artifactId>
+            <artifactId>spring-cloud-config-server</artifactId>
+            <version>2.0.1.RELEASE</version>
+        </dependency>
+        <!-- 图形化监控 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- 熔断 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
             <version>${starter.version}</version>
         </dependency>
         <dependency>
@@ -28,21 +34,11 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
             <version>${starter.version}</version>
         </dependency>
-        <!-- actuator监控 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- hystrix容错 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${starter.version}</version>
         </dependency>
-        <!-- 日常标配 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>

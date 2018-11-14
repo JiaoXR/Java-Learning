@@ -1,0 +1,13 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: microservice-cloud-config
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:JiaoXR/microservice-cloud-config.git  # Git仓库地址

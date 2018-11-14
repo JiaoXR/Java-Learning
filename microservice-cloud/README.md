@@ -88,13 +88,17 @@ http://localhost:8001/hystrix.stream
   - 包含了对请求的路由和过滤两个最重要的功能。
   - Zuul 和 Eureka 整合，将 Zuul自身注册为 Eureka 服务治理下的应用，同时从 Eureka 中获得其他微服务的消息，即，以后的访问微服务都是通过 Zuul 跳转后获得。
 - 通过网关 Zuul 访问微服务
-  - 原始：http://muzuul.com:9527/microservice-cloud-dept/dept/list
-  - 添加映射(映射为 `mydept` )：http://muzuul.com:9527/mydept/dept/2
-  - 添加前缀(前缀为 `ace`)：http://muzuul.com:9527/ace/mydept/dept/2
+  - 原始：http://myzuul.com:9527/microservice-cloud-dept/dept/list
+  - 添加映射(映射为 `mydept` )：http://myzuul.com:9527/mydept/dept/2
+  - 添加前缀(前缀为 `ace`)：http://myzuul.com:9527/ace/mydept/dept/2
 
 注意微服务名大小写！
 
-
-
-
-
+- Config
+  - 通过 Config Server 访问远程配置
+    - http://config-3344.com:3344/application-dev.yml
+    - http://config-3344.com:3344/application-other.yml
+  - Client 通过 Config Server 访问远程配置
+    - http://client-config.com:8201/config
+    - http://client-config.com:8202/config
+- 
