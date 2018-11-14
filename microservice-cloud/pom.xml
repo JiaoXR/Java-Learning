@@ -23,6 +23,8 @@
         <module>microservice-cloud-zuul-gateway-9527</module>
         <module>microservice-cloud-config-3344</module>
         <module>microservice-cloud-config-client-3355</module>
+        <module>microservice-cloud-provider-dept-8001-config</module>
+        <module>microservice-cloud-eureka-7001-config</module>
     </modules>
 
     <properties>
