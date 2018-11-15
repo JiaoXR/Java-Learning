@@ -1,8 +1,37 @@
 #  Spring Cloud 小结
 
+- 微服务
+
+微服务化的核心是将传统的一站式应用，根据业务拆分成一个个的服务，彻底地去耦合，每个微服务提供单个业务功能的服务，一个微服务做一件事，能够单独启动或销毁，拥有自己独立的数据库。
+
+- Spring Cloud & Dubbo
+
+| -            | Dubbo         | Spring Cloud                 |
+| ------------ | ------------- | ---------------------------- |
+| 服务注册中心 | ZooKeeper     | Spring Cloud Netflix Eureka  |
+| 服务调用方式 | RPC           | REST API                     |
+| 服务监控     | Dubbo-monitor | Spring Boot Admin            |
+| 断路器       | 不完善        | Spring Cloud Netflix Hystrix |
+| 服务网关     | 无            | Spring Cloud Netflix Zuul    |
+| 分布式配置   | 无            | Spring Cloud Config          |
+| 服务跟踪     | 无            | Spring Cloud Sleuth          |
+| 消息总线     | 无            | Spring Cloud Bus             |
+| 数据流       | 无            | Spring Cloud Stream          |
+| 批量任务     | 无            | Spring Cloud Task            |
+
+> 最大区别：Spring Cloud 抛弃了 Dubbo 的 RPC 通信，采用的是基于 HTTP 的 REST 方式。
+
 - Eureka (服务注册与发现)
 
-Eureka 自我保护机制：若某时刻一个微服务不可用，eureka 仍会保存该微服务的信息，不立即清理。当收到心跳数重新恢复到阈值以上时，自动退出自我保护模式。（宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例）。
+  Eureka 自我保护机制：若某时刻一个微服务不可用，eureka 仍会保存该微服务的信息，不立即清理。当收到心跳数重新恢复到阈值以上时，自动退出自我保护模式。（宁可保留错误的服务注册信息，也不盲目注销任何可能健康的服务实例）。
+
+  - Eureka Server
+
+  提供服务注册。各个节点启动后，会在 Eureka Server 中注册。
+
+  - Eureka Client
+
+  是一个 Java 客户端，用于简化 Eureka Server 交互，客户端也具备一个内置的、使用轮询（round-robin）负载算法的负载均衡器。在应用启动后将会向 Eureka Server 发送心跳（默认周围为 30 秒），若多个周期没有收到某个节点的心跳，Eureka Server 会将该节点从服务注册表中移除。
 
 - SQL
   - RSBMS(Relational Database Management System): MySQL, Oracle, SQLServer 等：ACID
@@ -64,7 +93,7 @@ import feign.hystrix.FallbackFactory;
 public class DeptClientServiceFallback implements FallbackFactory<DeptClientService> {}
 ```
 
-- Hystrix Dashboard
+- Hystrix Dashboard (可视化微服务监控)
 
 准实时的调用监控
 
@@ -84,7 +113,7 @@ http://localhost:8001/hystrix.stream
 
 404 ??
 
-- Zuul
+- Zuul (服务网关)
   - 包含了对请求的路由和过滤两个最重要的功能。
   - Zuul 和 Eureka 整合，将 Zuul自身注册为 Eureka 服务治理下的应用，同时从 Eureka 中获得其他微服务的消息，即，以后的访问微服务都是通过 Zuul 跳转后获得。
 - 通过网关 Zuul 访问微服务
@@ -94,11 +123,10 @@ http://localhost:8001/hystrix.stream
 
 注意微服务名大小写！
 
-- Config
+- Config (分布式配置)
   - 通过 Config Server 访问远程配置
     - http://config-3344.com:3344/application-dev.yml
     - http://config-3344.com:3344/application-other.yml
   - Client 通过 Config Server 访问远程配置
     - http://client-config.com:8201/config
     - http://client-config.com:8202/config
-
