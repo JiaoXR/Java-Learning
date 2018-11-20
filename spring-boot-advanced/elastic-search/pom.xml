@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jaxer.example</groupId>
-    <artifactId>dubbo-consumer</artifactId>
+    <artifactId>elastic-search</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>dubbo-consumer</name>
-    <description>dubbo消费者</description>
+    <name>elastic-search</name>
+    <description>Elasticsearch</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,17 +25,16 @@
     </properties>
 
     <dependencies>
-        <!--dubbo-->
+        <!--JestClient-->
         <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>0.2.0</version>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+            <version>5.3.4</version>
         </dependency>
-        <!--zookeeper客户端工具-->
+        <!--SpringData-->
         <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
         <dependency>
@@ -47,6 +46,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
