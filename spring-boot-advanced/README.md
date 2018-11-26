@@ -45,7 +45,6 @@
 
   打开 http://127.0.0.1:15672, 出现 RabbitMQ 登录界面（默认用户名和密码都是 `guest`）。
 
-  - 1
 
 ###  Elasticsearch
 
@@ -63,7 +62,9 @@
 $ docker run -e ES_JAVA_OPTS='-Xms256m -Xmx256m' -d -p 9200:9200 -p 9300:9300 --name ES01 5acf0e8da90b
 ```
 
-验证是否启动成功：浏览器打开 http://127.0.0.1:9200/，若成功，则显示如下图：
+验证是否启动成功：浏览器打开 http://127.0.0.1:9200/
+
+若成功，则显示如下图：
 
 ![](https://github.com/JiaoXR/Framework/blob/master/pics/Elasticsearch.png)
 
@@ -111,9 +112,7 @@ $ docker run -e ES_JAVA_OPTS='-Xms256m -Xmx256m' -d -p 9200:9200 -p 9300:9300 --
     ```
 
 - Spring-data-elastic
+
   - https://github.com/spring-projects/spring-data-elasticsearch
-
-
-
 
 
