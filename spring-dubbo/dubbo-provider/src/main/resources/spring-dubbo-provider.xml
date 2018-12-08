@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <description>dubbo demo provider</description>
+
+    <context:property-placeholder location="classpath:dubbo.properties"/>
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${dubbo.name}"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="${dubbo.protocol}" address="${dubbo.address}" client="${dubbo.client}"/>
+
+    <!-- dubbo 缓存-->
+    <dubbo:protocol id="dubbo" name="dubbo" port="${dubbo.port}" threadpool="cached" threads="${dubbo.threads}"/>
+
+    <!-- 对外提供的服务 -->
+    <bean id="greetingService" class="com.jaxer.example.service.impl.GreetingServiceImpl"/>
+    <dubbo:service interface="com.jaxer.example.service.GreetingService"
+                   protocol="dubbo" ref="greetingService"/>
+</beans>
