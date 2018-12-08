@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="command" class="com.jaxer.doc.aware.Command"/>
+
+    <!--有问题？？-->
+    <!--<bean id="myCommand" class="com.jaxer.doc.aware.CommandManager2" scope="prototype"/>-->
+    <!--<bean id="commandManager2" class="com.jaxer.doc.aware.CommandManager2">-->
+    <!--<lookup-method name="createCommand" bean="myCommand"/>-->
+    <!--</bean>-->
+
+</beans>

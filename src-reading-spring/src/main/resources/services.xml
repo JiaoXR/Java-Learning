@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="employeeService" class="com.jaxer.doc.service.EmployeeService"/>
+
+    <!--静态工厂方法实例化bean-->
+    <bean id="clientService1" class="com.jaxer.doc.factory.ClientService1" factory-method="getClientService1"/>
+
+    <!--实例工厂方法(Instance Factory Method)实例化Bean（可以有多个工厂方法）-->
+    <bean id="serviceLocator" class="com.jaxer.doc.factory.DefaultServiceLocator"/>
+    <bean id="getService2" factory-bean="serviceLocator" factory-method="getClientService2"/>
+    <bean id="createService2" factory-bean="serviceLocator" factory-method="createClientService2"/>
+
+</beans>
