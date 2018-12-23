@@ -17,25 +17,32 @@
 ##  1.4  Depencencies
 
 - Inner Beans: <bean\>  标签嵌套，封装内部类；
+
 - Collections: <list\>, <set\>, <map\>, <props\> 标签，分别对应 List, Set, Map, Properties 类；
+
 - p-namespace: p名称空间，p (\<property\>)，简化 XML 配置（setter 注入）；
+
 - c-namespace: c名称空间，c (<constructor\>)，简化 XML 配置（构造器注入）；
+
 - depends-on (<bean\> 标签): 显式强制初始化一个或多个bean；
+
 - 惰性初始化
   - <bean\>: lazy-init
   - <beans\>: default-lazy-init
+
 - autowiring
   - no
   - byName
   - byType
   - constructor
+
 - Method Injection
   - ApplicationContextAware: 解决相互依赖的 bean 之间生命周期不同带来的问题【不可行】；
   - 方法注入：通过 CGLIB 动态生成子类，并重写需要的方法；
   - `@Lookup("methodName")`
   - 任意方法替换（了解）：实现 `MethodReplacer` 接口
 
-- Bean Scopes
+##  1.5 Bean Scopes
 
   - singleton: 默认
 
@@ -87,6 +94,16 @@
     - `@ApplicationScope`
 
   - websocket: the lifecycle of a WebSocket
+
+##  1.6 Customizing the Nature of a Bean
+
+- #### Lifecycle Callbacks
+
+  - 推荐使用：`@PostConstruct`, `@PreDestroy`
+  - 或 `init-method`, `destroy-method`
+  - 不推荐使用：`InitializingBean` 和 `DisposableBean`
+
+
 
 
 

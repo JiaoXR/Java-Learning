@@ -31,6 +31,8 @@
     <!--<constructor-arg index="1" value="hello"/>-->
     <!--</bean>-->
 
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
     <!--构造器注入(简单类型)，使用name-->
     <bean id="exampleBean" class="com.jaxer.doc.di.ExampleBean">
         <constructor-arg name="years" value="2018"/>
