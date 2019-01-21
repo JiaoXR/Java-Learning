@@ -105,23 +105,16 @@
 
 - 若配置多个初始化/销毁方法，则执行顺序如下：
 
-  - 初始化
-    1. `@PostConstruct`
-    2. `InitializingBean#afterPropertiesSet()`
-    3. `init-method`
-  - 销毁
-    1. `@PreDestroy`
-    2. `DisposableBean#destroy()`
-    3. `destroy-method`
+    - 初始化
+        1. `@PostConstruct`
+        2. `InitializingBean#afterPropertiesSet()`
+        3. `init-method`
+    - 销毁
+        1. `@PreDestroy`
+        2. `DisposableBean#destroy()`
+        3. `destroy-method`
 
 - `context.registerShutdownHook()`
 
 
-
-
-
-```java
-public FileSystemXmlApplicationContext(String configLocation) throws BeansException {}
-public FileSystemXmlApplicationContext(String[] configLocations, boolean refresh, @Nullable ApplicationContext parent) throws BeansException {}
-```
 
