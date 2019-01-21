@@ -103,7 +103,18 @@
   - 或 `init-method`, `destroy-method`
   - 不推荐使用：`InitializingBean` 和 `DisposableBean`
 
+- 若配置多个初始化/销毁方法，则执行顺序如下：
 
+  - 初始化
+    1. `@PostConstruct`
+    2. `InitializingBean#afterPropertiesSet()`
+    3. `init-method`
+  - 销毁
+    1. `@PreDestroy`
+    2. `DisposableBean#destroy()`
+    3. `destroy-method`
+
+- `context.registerShutdownHook()`
 
 
 
