@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init_method" default-destroy-method="destroy_method">
+
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
+    <!--生命周期-->
+    <bean id="lifeCycle" class="com.jaxer.doc.bean.LifeCycle">
+        <property name="message" value="set message"/>
+    </bean>
+    <bean id="helloWorld1" class="com.jaxer.doc.bean.HelloWorld1"/>
+    <bean id="helloWorld2" class="com.jaxer.doc.bean.HelloWorld2"/>
+
+</beans>

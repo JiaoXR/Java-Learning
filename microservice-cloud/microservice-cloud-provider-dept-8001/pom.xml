@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>microservice-cloud-provider-dept-8001</artifactId>
-    <description>部门微服务生产者</description>
+    <description>部门微服务生产者1</description>
 
     <dependencies>
         <dependency>
@@ -32,6 +32,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${starter.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

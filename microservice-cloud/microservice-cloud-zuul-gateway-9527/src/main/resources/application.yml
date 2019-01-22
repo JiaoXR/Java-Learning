@@ -1,0 +1,30 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: microservice-cloud-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+      instance-id: gate-9527.com
+      prefer-ip-address: true
+
+# Zuul路由访问映射规则
+zuul:
+#  ignored-services: microservice-cloud-dept   # 屏蔽原先路径
+  ignored-services: "*"                        # 屏蔽原先路径【批处理】
+  prefix: /ace                                 # 统一前缀
+  routes:
+    mydept.serviceId: microservice-cloud-dept  # 微服务名称
+    mydept.path: /mydept/**                    # 映射的路径
+
+info:
+  app.name: microservice-cloud-zuul-gateway
+  company.name: www.jaxer.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+

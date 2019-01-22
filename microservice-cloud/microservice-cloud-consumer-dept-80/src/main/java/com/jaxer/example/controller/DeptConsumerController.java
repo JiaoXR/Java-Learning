@@ -16,7 +16,8 @@ import java.util.List;
  */
 @RestController
 public class DeptConsumerController {
-    private static final String PROVIDER_PREFIX = "http://localhost:8001/";
+    //    private static final String PROVIDER_PREFIX = "http://localhost:8001/";
+    private static final String PROVIDER_PREFIX = "http://MICROSERVICE-CLOUD-DEPT/"; //通过微服务访问
 
     @Autowired
     private RestTemplate restTemplate;
@@ -26,7 +27,7 @@ public class DeptConsumerController {
         return restTemplate.postForObject(PROVIDER_PREFIX + "dept/add", dept, Boolean.class);
     }
 
-    @RequestMapping(value = "consumer/dept/get/{id}")
+    @RequestMapping(value = "consumer/dept/{id}")
     public Dept findById(@PathVariable("id") Integer id) {
         return restTemplate.getForObject(PROVIDER_PREFIX + "dept/" + id, Dept.class);
     }

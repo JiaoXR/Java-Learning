@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--构造器注入(引用类型)-->
+    <!--depends-on:显式强制初始化一个或多个bean-->
+    <bean id="thingOne" class="com.jaxer.doc.di.thing.ThingOne" depends-on="thingTwo" autowire="no">
+        <constructor-arg ref="thingTwo"/>
+        <!--<constructor-arg ref="thingThree"/>-->
+        <constructor-arg name="thingThree">
+            <ref bean="thingThree"/>
+        </constructor-arg>
+        <!--报错？？-->
+        <!--<property name="thingTwo">-->
+        <!--<idref bean="thingThree"/>-->
+        <!--</property>-->
+    </bean>
+    <bean id="thingTwo" class="com.jaxer.doc.di.thing.ThingTwo" autowire-candidate="false"/>
+    <bean id="thingThree" class="com.jaxer.doc.di.thing.ThingThree"/>
+
+    <!--构造器注入(简单类型)，使用type-->
+    <!--<bean id="exampleBean" class="com.jaxer.source.di.ExampleBean">-->
+    <!--<constructor-arg type="int" value="2018"/>-->
+    <!--<constructor-arg type="java.lang.String" value="hello"/>-->
+    <!--</bean>-->
+
+    <!--构造器注入(简单类型)，使用index-->
+    <!--<bean id="exampleBean" class="com.jaxer.source.di.ExampleBean">-->
+    <!--<constructor-arg index="0" value="2018"/>-->
+    <!--<constructor-arg index="1" value="hello"/>-->
+    <!--</bean>-->
+
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
+    <!--构造器注入(简单类型)，使用name-->
+    <bean id="exampleBean" class="com.jaxer.doc.di.ExampleBean">
+        <constructor-arg name="years" value="2018"/>
+        <constructor-arg name="ultimateAnswer" value="hello"/>
+    </bean>
+
+    <!--构造器注入(简单类型)，使用name，使用 @ConstructorProperties 注解修改名称-->
+    <!--<bean id="exampleBean" class="com.jaxer.source.di.ExampleBean">-->
+    <!--<constructor-arg name="years1" value="2018"/>-->
+    <!--<constructor-arg name="ultimateAnswer1" value="hello"/>-->
+    <!--</bean>-->
+
+    <!--Setter注入-->
+    <!--<bean id="thingOne1" class="com.jaxer.source.di.thing.ThingOne">-->
+    <!--<property name="thingTwo" ref="thingTwo"/>-->
+    <!--</bean>-->
+
+    <!--list等集合类依赖注入-->
+    <bean id="complexObject" class="com.jaxer.doc.di.ComplexObject">
+        <constructor-arg name="list">
+            <list>
+                <!--自动打印？？-->
+                <value>hello</value>
+                <ref bean="thingTwo"/>
+                <!--空字符串-->
+                <value>""</value>
+                <!--null-->
+                <null/>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>

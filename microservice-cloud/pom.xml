@@ -15,6 +15,16 @@
         <module>microservice-cloud-eureka-7001</module>
         <module>microservice-cloud-eureka-7002</module>
         <module>microservice-cloud-eureka-7003</module>
+        <module>microservice-cloud-provider-dept-8002</module>
+        <module>microservice-cloud-provider-dept-8003</module>
+        <module>microservice-cloud-consumer-dept-feign</module>
+        <module>microservice-cloud-provider-dept-8001-hystrix</module>
+        <module>microservice-cloud-provider-dept-hystrix-dashboard</module>
+        <module>microservice-cloud-zuul-gateway-9527</module>
+        <module>microservice-cloud-config-3344</module>
+        <module>microservice-cloud-config-client-3355</module>
+        <module>microservice-cloud-provider-dept-8001-config</module>
+        <module>microservice-cloud-eureka-7001-config</module>
     </modules>
 
     <properties>
@@ -24,7 +34,8 @@
         <junit.version>4.12</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.18.0</lombok.version>
-        <springboot.version>2.1.0.RELEASE</springboot.version>
+        <cloud.version>Finchley.RELEASE</cloud.version>
+        <springboot.version>2.0.5.RELEASE</springboot.version>
         <starter.version>1.4.5.RELEASE</starter.version>
     </properties>
 
@@ -34,7 +45,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.RELEASE</version>
+                <version>${cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -1,0 +1,7 @@
+dubbo:
+  application:
+    name: consumer-ticket
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    base-packages: com.jaxer.example.ticket.service
