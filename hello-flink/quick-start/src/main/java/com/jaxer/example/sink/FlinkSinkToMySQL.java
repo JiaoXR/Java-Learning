@@ -2,6 +2,7 @@ package com.jaxer.example.sink;
 
 import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Student;
+import com.jaxer.example.util.CommonUtil;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -18,17 +19,10 @@ public class FlinkSinkToMySQL {
 
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("zookeeper.connect", "localhost:2181");
-        props.put("group.id", "metric-group");
-        props.put("key.deserializer", DESERIALIZER_KEY);
-        props.put("value.deserializer", DESERIALIZER_VALUE);
-        props.put("auto.offset.reset", "latest");
+        Properties properties = CommonUtil.getProperties();
 
         SingleOutputStreamOperator<Student> student = env
-                .addSource(new FlinkKafkaConsumer011<>(KAFKA_TOPIC_STUDENT, new SimpleStringSchema(), props))
+                .addSource(new FlinkKafkaConsumer011<>(KAFKA_TOPIC_STUDENT, new SimpleStringSchema(), properties))
                 .setParallelism(1)
                 .map(string -> JSON.parseObject(string, Student.class)); //FastJson 解析字符串成 student 对象
 

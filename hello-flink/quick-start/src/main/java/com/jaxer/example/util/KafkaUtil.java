@@ -34,7 +34,7 @@ public class KafkaUtil {
         KafkaProducer<String, String> producer = getKafkaProducer();
 
         for (int i = 0; i < 50; i++) {
-            Student student = new Student(null, "name" + i, "男", 18 + i);
+            Student student = new Student(null, "name" + i, "女", 18 + i);
             ProducerRecord<String, String> record = new ProducerRecord<>(
                     KAFKA_TOPIC_STUDENT, null, null, JSON.toJSONString(student)
             );

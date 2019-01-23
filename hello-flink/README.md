@@ -113,17 +113,34 @@ $ brew install apache-flink
 
 
 
+###  Data Source
 
-
-自定义 Data Source：Kafka、MySQL 等。
-
-Data Sink: Kafka, Elasticsearch, Socket, RabbitMQ, JDBC, Cassandra POJO、File、Print 等 Sink 的方式。
-
-
-
+- 基于集合
+- 基于文件
+- 基于 Socket
+- 自定义
 
 
 
+###  Data Sink
+
+- Kafka, Elasticsearch, Socket, RabbitMQ, JDBC, Cassandra POJO、File、Print 等
+
+
+
+###  Data transformation
+
+- Map
+- FlatMap
+- Filter
+- KeyBy
+- Reduce
+- Aggregation
+- Window
+- WindowAll
+- Union
+- WindowJoin
+- Split
 
 
 
