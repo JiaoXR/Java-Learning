@@ -1,4 +1,4 @@
-package com.jaxer.example.sql;
+package com.jaxer.example.source.sql;
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 

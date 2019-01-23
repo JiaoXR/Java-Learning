@@ -1,4 +1,4 @@
-package com.jaxer.example.kafka;
+package com.jaxer.example.source.kafka;
 
 import com.jaxer.example.constant.Constant;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
@@ -7,6 +7,9 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
 
 import java.util.Properties;
+
+import static com.jaxer.example.constant.Constant.DESERIALIZER_KEY;
+import static com.jaxer.example.constant.Constant.DESERIALIZER_VALUE;
 
 /**
  * Created by jiaoxiangru on 2:51 PM 2019/1/22
@@ -20,12 +23,12 @@ public class FlinkKafkaMain {
         props.put("bootstrap.servers", "localhost:9092");
         props.put("zookeeper.connect", "localhost:2181");
         props.put("group.id", "metric-group");
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");  //key 反序列化
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"); //value 反序列化
+        props.put("key.deserializer", DESERIALIZER_KEY);  //key 反序列化
+        props.put("value.deserializer", DESERIALIZER_VALUE); //value 反序列化
         props.put("auto.offset.reset", "latest");
 
         DataStreamSource<String> dataStreamSource = env.addSource(new FlinkKafkaConsumer011<>(
-                Constant.KAFKA_TOPIC,  //kafka topic
+                Constant.KAFKA_TOPIC_MYTOP,  //kafka topic
                 new SimpleStringSchema(),  // String 序列化
                 props)
         ).setParallelism(1);

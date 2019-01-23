@@ -107,11 +107,17 @@ $ brew install apache-flink
 
 
 
+> 官网连接：https://flink.apache.org/
+>
+> GitHub：https://github.com/apache/flink
 
 
 
 
 
+自定义 Data Source：Kafka、MySQL 等。
+
+Data Sink: Kafka, Elasticsearch, Socket, RabbitMQ, JDBC, Cassandra POJO、File、Print 等 Sink 的方式。
 
 
 

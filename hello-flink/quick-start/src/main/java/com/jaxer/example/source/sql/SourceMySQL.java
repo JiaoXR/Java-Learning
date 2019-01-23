@@ -1,4 +1,4 @@
-package com.jaxer.example.sql;
+package com.jaxer.example.source.sql;
 
 import com.jaxer.example.domain.Student;
 import org.apache.flink.configuration.Configuration;

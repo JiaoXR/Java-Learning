@@ -1,7 +1,8 @@
-package com.jaxer.example.kafka;
+package com.jaxer.example.util;
 
 import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Metric;
+import com.jaxer.example.domain.Student;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -18,18 +19,37 @@ import static com.jaxer.example.constant.Constant.*;
 public class KafkaUtil {
 
     public static void main(String[] args) throws InterruptedException {
+        writeToKafka2();
+
         while (true) {
             writeToKafka();
             Thread.sleep(3000);
         }
     }
 
+    /**
+     * 向 Kafka 发送固定条数的数据（Student 类型）
+     */
+    private static void writeToKafka2() {
+        KafkaProducer<String, String> producer = getKafkaProducer();
+
+        for (int i = 0; i < 50; i++) {
+            Student student = new Student(null, "name" + i, "男", 18 + i);
+            ProducerRecord<String, String> record = new ProducerRecord<>(
+                    KAFKA_TOPIC_STUDENT, null, null, JSON.toJSONString(student)
+            );
+            producer.send(record);
+            System.out.println("发送数据: " + JSON.toJSONString(student));
+        }
+
+        producer.flush();
+    }
+
+    /**
+     * 向 Kafka 写入数据（测试）
+     */
     private static void writeToKafka() {
-        Properties props = new Properties();
-        props.put("bootstrap.servers", BROKER_LIST);
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"); //key 序列化
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer"); //value 序列化
-        KafkaProducer<String, String> producer = new KafkaProducer<>(props);
+        KafkaProducer<String, String> producer = getKafkaProducer();
 
         Metric metric = new Metric();
         metric.setTimestamp(System.currentTimeMillis());
@@ -49,11 +69,19 @@ public class KafkaUtil {
         metric.setFields(fields);
 
         ProducerRecord<String, String> record = new ProducerRecord<>(
-                KAFKA_TOPIC, null, null, JSON.toJSONString(metric)
+                KAFKA_TOPIC_MYTOP, null, null, JSON.toJSONString(metric)
         );
         producer.send(record);
         System.out.println("发送数据: " + JSON.toJSONString(metric));
 
         producer.flush();
+    }
+
+    private static KafkaProducer<String, String> getKafkaProducer() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", BROKER_LIST);
+        props.put("key.serializer", SERIALIZER_KEY);
+        props.put("value.serializer", SERIALIZER_VALUE);
+        return new KafkaProducer<>(props);
     }
 }
