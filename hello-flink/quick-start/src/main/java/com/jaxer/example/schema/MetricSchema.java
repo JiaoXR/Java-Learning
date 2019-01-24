@@ -1,23 +1,22 @@
 package com.jaxer.example.schema;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Metric;
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 
-import java.nio.charset.Charset;
+import java.util.Date;
 
 /**
  * Created by jiaoxiangru on 3:06 PM 2019/1/22
  */
 public class MetricSchema implements DeserializationSchema<Metric>, SerializationSchema<Metric> {
 
-    private static final Gson gson = new Gson();
-
     @Override
     public Metric deserialize(byte[] bytes) {
-        return gson.fromJson(new String(bytes), Metric.class);
+        System.out.println(new Date() + ", deserialize-->" + new String(bytes));
+        return JSON.parseObject(new String(bytes), Metric.class);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class MetricSchema implements DeserializationSchema<Metric>, Serializatio
 
     @Override
     public byte[] serialize(Metric metricEvent) {
-        return gson.toJson(metricEvent).getBytes(Charset.forName("UTF-8"));
+        return JSON.toJSONBytes(metricEvent);
     }
 
     @Override

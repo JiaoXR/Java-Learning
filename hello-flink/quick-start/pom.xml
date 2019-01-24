@@ -21,10 +21,15 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
         </dependency>
-        <!--flink kafka connector-->
+        <!--flink connector-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.11_${scala.binary.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch6_2.12</artifactId>
+            <version>1.7.1</version>
         </dependency>
         <!--kafka-clients-->
         <dependency>

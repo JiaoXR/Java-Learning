@@ -15,7 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class Metric {
     public String name;
-    public long timestamp;
+    public Long timestamp;
     public Map<String, Object> fields;
     public Map<String, String> tags;
 }

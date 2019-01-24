@@ -15,6 +15,7 @@ import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.WindowAssigner;
+import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.triggers.Trigger;
 import org.apache.flink.streaming.api.windowing.windows.Window;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
@@ -122,6 +123,7 @@ public class Transform {
      */
     private static void window(DataStream<Student> dataStream) {
 //        dataStream.keyBy(0).window(Time.seconds(10));
+//        dataStream.keyBy(0).timeWindow(Time.minutes(1));
     }
 
     /**

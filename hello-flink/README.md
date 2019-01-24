@@ -75,6 +75,14 @@ $ brew install kafka
 $ ./kafka-topics --list --zookeeper localhost:2181
 ```
 
+- 删除 topic
+
+```bash
+$ ./kafka-topics --zookeeper localhost:2181 --delete --topic mytop
+```
+
+
+
 - 启动生产者
 
 ```bash
@@ -102,6 +110,37 @@ $ brew install apache-flink
 - 启动
   - 目录：`/usr/local/Cellar/apache-flink/1.7.1/libexec/bin`
   - 命令：`$ ./start-cluster.sh`
+
+###  0.4  安装 Elasticsearch
+
+- 安装
+
+```bash
+# 安装 Elasticsearch
+$ brew install elasticsearch
+# 安装 kibana (ES 网页交互工具)
+$ brew install kibana
+```
+
+- 启动
+
+```bash
+$ brew services start elasticsearch
+$ brew services start kibana
+```
+
+ES: http://localhost:9200/
+
+Kibana: http://localhost:5601/
+
+- 重启
+
+```bash
+$ brew services restart elasticsearch
+$ brew services restart kibana
+```
+
+
 
 ##  1. Flink 学习
 
@@ -141,6 +180,16 @@ $ brew install apache-flink
 - Union
 - WindowJoin
 - Split
+
+
+
+###  Time
+
+- Processing Time
+- Event Time
+- Ingestion Time
+
+
 
 
 
