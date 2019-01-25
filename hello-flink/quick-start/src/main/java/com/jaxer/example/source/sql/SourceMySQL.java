@@ -1,6 +1,7 @@
 package com.jaxer.example.source.sql;
 
 import com.jaxer.example.domain.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 
@@ -15,6 +16,7 @@ import static com.jaxer.example.constant.Constant.*;
  * Created by jiaoxiangru on 3:53 PM 2019/1/22
  * 自定义数据源--MySQL
  */
+@Slf4j
 public class SourceMySQL extends RichSourceFunction<Student> {
 
     private PreparedStatement statement;
@@ -74,7 +76,7 @@ public class SourceMySQL extends RichSourceFunction<Student> {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
         } catch (Exception e) {
-            System.out.println("---------- mysql get connection has exception , msg = " + e.getMessage());
+            log.info("---------- mysql get connection has exception, msg = {}", e.getMessage());
         }
         return connection;
     }

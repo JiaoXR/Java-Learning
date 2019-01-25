@@ -3,6 +3,7 @@ package com.jaxer.example.util;
 import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Metric;
 import com.jaxer.example.domain.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -16,6 +17,7 @@ import static com.jaxer.example.constant.Constant.*;
  * 往 Kafka 写入数据
  * Created by jiaoxiangru on 12:45 PM 2019/1/22
  */
+@Slf4j
 public class KafkaUtil {
 
     public static void main(String[] args) throws InterruptedException {
@@ -39,7 +41,7 @@ public class KafkaUtil {
                     KAFKA_TOPIC_STUDENT, null, null, JSON.toJSONString(student)
             );
             producer.send(record);
-            System.out.println("发送数据: " + JSON.toJSONString(student));
+            log.info("发送数据: " + JSON.toJSONString(student));
         }
 
         producer.flush();
@@ -72,7 +74,7 @@ public class KafkaUtil {
                 KAFKA_TOPIC_MYTOP, null, null, JSON.toJSONString(metric)
         );
         producer.send(record);
-        System.out.println("发送数据: " + JSON.toJSONString(metric));
+        log.info("发送数据: " + JSON.toJSONString(metric));
 
         producer.flush();
     }

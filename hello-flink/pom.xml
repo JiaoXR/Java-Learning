@@ -17,6 +17,7 @@
         <flink.version>1.7.1</flink.version>
         <kafka.version>2.1.0</kafka.version>
         <scala.binary.version>2.12</scala.binary.version>
+        <log.version>1.7.25</log.version>
     </properties>
 
     <dependencyManagement>
@@ -44,6 +45,22 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka.version}</version>
+            </dependency>
+            <!--log-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${log.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${log.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${log.version}</version>
             </dependency>
             <!--other-->
             <dependency>

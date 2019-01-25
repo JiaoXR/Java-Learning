@@ -1,6 +1,7 @@
 package com.jaxer.example.sink;
 
 import com.jaxer.example.domain.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 
@@ -15,6 +16,7 @@ import static com.jaxer.example.constant.Constant.*;
  * 自定义 Sink 函数
  * Created by jiaoxiangru on 1:44 PM 2019/1/23
  */
+@Slf4j
 public class SinkToMySQL extends RichSinkFunction<Student> {
 
     private PreparedStatement statement;
@@ -55,7 +57,7 @@ public class SinkToMySQL extends RichSinkFunction<Student> {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
         } catch (Exception e) {
-            System.out.println("---------- mysql get connection has exception , msg = " + e.getMessage());
+            log.info("---------- mysql get connection has exception ,msg = {}", e.getMessage());
         }
         return connection;
     }
