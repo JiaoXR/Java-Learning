@@ -1,6 +1,6 @@
 package com.jaxer.example.sink;
 
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.connectors.elasticsearch.ElasticsearchSinkFunction;
 import org.apache.flink.streaming.connectors.elasticsearch6.ElasticsearchSink;
 import org.apache.http.HttpHost;
@@ -16,10 +16,10 @@ import java.util.List;
 public class SinkToElasticsearch {
 
     public static <T> void addSink(List<HttpHost> hosts, int bulkFlushMaxActions, int parallelism,
-                                   SingleOutputStreamOperator<T> data, ElasticsearchSinkFunction<T> func) {
+                                   DataStream<T> dataStream, ElasticsearchSinkFunction<T> func) {
         ElasticsearchSink.Builder<T> esSinkBuilder = new ElasticsearchSink.Builder<>(hosts, func);
         esSinkBuilder.setBulkFlushMaxActions(bulkFlushMaxActions);
-        data.addSink(esSinkBuilder.build()).setParallelism(parallelism);
+        dataStream.addSink(esSinkBuilder.build()).setParallelism(parallelism);
     }
 
     public static List<HttpHost> getEsAddresses(String hosts) throws MalformedURLException {

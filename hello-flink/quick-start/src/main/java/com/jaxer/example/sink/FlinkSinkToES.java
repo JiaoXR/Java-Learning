@@ -6,7 +6,7 @@ import com.jaxer.example.util.ExecutionEnvUtil;
 import com.jaxer.example.util.KafkaConfigUtil;
 import org.apache.flink.api.common.functions.RuntimeContext;
 import org.apache.flink.api.java.utils.ParameterTool;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.elasticsearch.RequestIndexer;
 import org.apache.http.HttpHost;
@@ -24,7 +24,7 @@ public class FlinkSinkToES {
     public static void main(String[] args) throws Exception {
         final ParameterTool parameterTool = ExecutionEnvUtil.createParameterTool(args);
         StreamExecutionEnvironment env = ExecutionEnvUtil.prepare(parameterTool);
-        DataStreamSource<Metric> data = KafkaConfigUtil.buildSource(env);
+        DataStream<Metric> dataStream = KafkaConfigUtil.buildSource(env);
 
         List<HttpHost> esHostList = SinkToElasticsearch.getEsAddresses(parameterTool.get(ELASTICSEARCH_HOSTS));
         // 从配置文件中读取 bulk flush size，代表一次批处理的数量，这个可是性能调优参数
@@ -33,7 +33,7 @@ public class FlinkSinkToES {
         int sinkParallelism = parameterTool.getInt(STREAM_SINK_PARALLELISM, 5);
 
         // 自己再自带的 es sink 上一层封装了下
-        SinkToElasticsearch.addSink(esHostList, bulkSize, sinkParallelism, data,
+        SinkToElasticsearch.addSink(esHostList, bulkSize, sinkParallelism, dataStream,
                 (Metric metric, RuntimeContext runtimeContext, RequestIndexer requestIndexer) ->
                         requestIndexer.add(Requests.indexRequest()
                                 .index(ELASTIC_SEARCH_INDEX)  //es index

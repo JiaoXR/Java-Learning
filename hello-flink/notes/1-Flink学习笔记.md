@@ -28,6 +28,12 @@
 
 
 
+- [DataStream API](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/datastream_api.html) (bounded/unbounded streams)
+
+- [DataSet API](https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/index.html) (bounded data sets)
+
+
+
 ## Programs and Dataflows
 
 ![](https://github.com/JiaoXR/Framework/blob/master/pics/flink/program_dataflow.svg)
@@ -76,12 +82,17 @@
 
 
 
+PS: *UserBehavior.csv* 文件可以通过下面命令下载。
+
+```bash
+$ curl https://raw.githubusercontent.com/wuchong/my-flink-project/master/src/main/resources/UserBehavior.csv > UserBehavior.csv
+```
 
 
-> 官网：https://flink.apache.org/
+
+> 参考链接：
 >
-> GitHub：https://github.com/apache/flink
->
-> 参考链接：http://www.54tianzhisheng.cn/tags/Flink/
+> 1. http://www.54tianzhisheng.cn/tags/Flink/
+> 2. http://wuchong.me/
 
 

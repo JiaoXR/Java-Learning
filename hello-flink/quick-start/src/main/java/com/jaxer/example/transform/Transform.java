@@ -12,7 +12,6 @@ import org.apache.flink.streaming.api.collector.selector.OutputSelector;
 import org.apache.flink.streaming.api.datastream.CoGroupedStreams;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.WindowAssigner;
 import org.apache.flink.streaming.api.windowing.triggers.Trigger;
@@ -37,17 +36,17 @@ public class Transform {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         Properties properties = KafkaUtil.getProps();
 
-        SingleOutputStreamOperator<Student> studentStream = env
+        DataStream<Student> studentDataStream = env
                 .addSource(new FlinkKafkaConsumer011<>(KAFKA_TOPIC_STUDENT, new SimpleStringSchema(), properties))
                 .setParallelism(1)
-                .map(string -> JSON.parseObject(string, Student.class)); //FastJson 解析字符串成 studentStream 对象
+                .map(string -> JSON.parseObject(string, Student.class)); //FastJson 解析字符串成 studentDataStream 对象
 
-        map(studentStream);
-//        flatMap(studentStream);
-//        filter(studentStream);
-//        keyBy(studentStream);
-//        reduce(studentStream);
-//        aggregation(studentStream);
+        map(studentDataStream);
+//        flatMap(studentDataStream);
+//        filter(studentDataStream);
+//        keyBy(studentDataStream);
+//        reduce(studentDataStream);
+//        aggregation(studentDataStream);
 
         env.execute("Flink add sink");
     }
