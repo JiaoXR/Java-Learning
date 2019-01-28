@@ -7,6 +7,15 @@
 
 ##  Process Unbounded and Bounded Data
 
+1. **Unbounded streams** have a start but no defined end. 
+2. **Bounded streams** have a defined start and end. 
+
+如图所示：
+
+![bounded](https://github.com/JiaoXR/Framework/blob/master/pics/flink/bounded-unbounded.png)
+
+
+
 ###  Streaming
 
 ###  Batch
@@ -72,5 +81,7 @@
 > 官网：https://flink.apache.org/
 >
 > GitHub：https://github.com/apache/flink
+>
+> 参考链接：http://www.54tianzhisheng.cn/tags/Flink/
 
 

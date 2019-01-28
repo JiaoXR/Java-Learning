@@ -36,7 +36,7 @@ public class KafkaConfigUtil {
 
     private static DataStreamSource<Metric> buildSource(StreamExecutionEnvironment env, String topic, Long time) {
         ParameterTool parameterTool = (ParameterTool) env.getConfig().getGlobalJobParameters();
-        Properties props = CommonUtil.buildKafkaProps(parameterTool);
+        Properties props = KafkaUtil.getProps(parameterTool);
         FlinkKafkaConsumer011<Metric> consumer = new FlinkKafkaConsumer011<>(
                 topic, new MetricSchema(), props
         );

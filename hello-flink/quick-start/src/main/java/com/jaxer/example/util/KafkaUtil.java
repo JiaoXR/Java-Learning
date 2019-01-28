@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Metric;
 import com.jaxer.example.domain.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -14,7 +15,7 @@ import java.util.Properties;
 import static com.jaxer.example.constant.Constant.*;
 
 /**
- * 往 Kafka 写入数据
+ * Kafka 常用操作
  * Created by jiaoxiangru on 12:45 PM 2019/1/22
  */
 @Slf4j
@@ -27,6 +28,28 @@ public class KafkaUtil {
             writeToKafka();
             Thread.sleep(3000);
         }
+    }
+
+    public static Properties getProps() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("zookeeper.connect", "localhost:2181");
+        props.put("group.id", "metric-group");
+        props.put("key.deserializer", DESERIALIZER_KEY);
+        props.put("value.deserializer", DESERIALIZER_VALUE);
+        props.put("auto.offset.reset", "latest");
+        return props;
+    }
+
+    public static Properties getProps(ParameterTool parameterTool) {
+        Properties props = parameterTool.getProperties();
+        props.put("bootstrap.servers", parameterTool.get(KAFKA_BROKERS));
+        props.put("zookeeper.connect", parameterTool.get(KAFKA_ZOOKEEPER_CONNECT));
+        props.put("group.id", parameterTool.get(KAFKA_GROUP_ID));
+        props.put("key.deserializer", DESERIALIZER_KEY);
+        props.put("value.deserializer", DESERIALIZER_VALUE);
+        props.put("auto.offset.reset", "latest");
+        return props;
     }
 
     /**
@@ -48,33 +71,17 @@ public class KafkaUtil {
     }
 
     /**
-     * 向 Kafka 写入数据（测试）
+     * 向 Kafka 写入数据（Metric 类型）
      */
     private static void writeToKafka() {
         KafkaProducer<String, String> producer = getKafkaProducer();
-
-        Metric metric = new Metric();
-        metric.setTimestamp(System.currentTimeMillis());
-        metric.setName("memory");
-        Map<String, String> tags = new HashMap<>();
-        Map<String, Object> fields = new HashMap<>();
-
-        tags.put("cluster", "cluster");
-        tags.put("host_ip", "127.0.0.1");
-
-        fields.put("used_percent", 90d);
-        fields.put("max", 27244873d);
-        fields.put("used", 17244873d);
-        fields.put("init", 27244873d);
-
-        metric.setTags(tags);
-        metric.setFields(fields);
+        String metricJsonString = getMetricJson();
 
         ProducerRecord<String, String> record = new ProducerRecord<>(
-                KAFKA_TOPIC_MYTOP, null, null, JSON.toJSONString(metric)
+                KAFKA_TOPIC_MYTOP, null, null, metricJsonString
         );
         producer.send(record);
-        log.info("发送数据: " + JSON.toJSONString(metric));
+        log.info("发送数据: " + metricJsonString);
 
         producer.flush();
     }
@@ -85,5 +92,29 @@ public class KafkaUtil {
         props.put("key.serializer", SERIALIZER_KEY);
         props.put("value.serializer", SERIALIZER_VALUE);
         return new KafkaProducer<>(props);
+    }
+
+    /**
+     * 创建自定义数据类型并转为 JSON 字符串
+     */
+    private static String getMetricJson() {
+        Metric metric = new Metric();
+        metric.setTimestamp(System.currentTimeMillis());
+        metric.setName("memory");
+
+        Map<String, String> tags = new HashMap<>();
+        tags.put("cluster", "cluster");
+        tags.put("host_ip", "127.0.0.1");
+
+        Map<String, Object> fields = new HashMap<>();
+        fields.put("used_percent", 90d);
+        fields.put("max", 27244873d);
+        fields.put("used", 17244873d);
+        fields.put("init", 27244873d);
+
+        metric.setTags(tags);
+        metric.setFields(fields);
+
+        return JSON.toJSONString(metric);
     }
 }

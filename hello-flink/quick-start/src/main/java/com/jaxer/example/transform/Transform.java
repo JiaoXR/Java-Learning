@@ -2,7 +2,7 @@ package com.jaxer.example.transform;
 
 import com.alibaba.fastjson.JSON;
 import com.jaxer.example.domain.Student;
-import com.jaxer.example.util.CommonUtil;
+import com.jaxer.example.util.KafkaUtil;
 import org.apache.flink.api.common.ExecutionConfig;
 import org.apache.flink.api.common.functions.*;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
@@ -15,7 +15,6 @@ import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.WindowAssigner;
-import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.triggers.Trigger;
 import org.apache.flink.streaming.api.windowing.windows.Window;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
@@ -36,19 +35,19 @@ public class Transform {
 
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        Properties properties = CommonUtil.getProperties();
+        Properties properties = KafkaUtil.getProps();
 
-        SingleOutputStreamOperator<Student> student = env
+        SingleOutputStreamOperator<Student> studentStream = env
                 .addSource(new FlinkKafkaConsumer011<>(KAFKA_TOPIC_STUDENT, new SimpleStringSchema(), properties))
                 .setParallelism(1)
-                .map(string -> JSON.parseObject(string, Student.class)); //FastJson 解析字符串成 student 对象
+                .map(string -> JSON.parseObject(string, Student.class)); //FastJson 解析字符串成 studentStream 对象
 
-        map(student);
-//        flatMap(student);
-//        filter(student);
-//        keyBy(student);
-//        reduce(student);
-//        aggregation(student);
+        map(studentStream);
+//        flatMap(studentStream);
+//        filter(studentStream);
+//        keyBy(studentStream);
+//        reduce(studentStream);
+//        aggregation(studentStream);
 
         env.execute("Flink add sink");
     }
