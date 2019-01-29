@@ -9,7 +9,8 @@ import org.apache.flink.util.Collector;
 
 /**
  * Created by jiaoxiangru on 4:19 PM 2019/1/28
- * 官网例子
+ * 官网 DataStream 实例
+ * https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/datastream_api.html#example-program
  */
 public class WindowWordCount {
     public static void main(String[] args) throws Exception {

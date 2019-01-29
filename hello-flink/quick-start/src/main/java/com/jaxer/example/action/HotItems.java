@@ -13,7 +13,6 @@ import org.apache.flink.api.java.typeutils.TypeExtractor;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.core.fs.Path;
 import org.apache.flink.streaming.api.TimeCharacteristic;
-import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
@@ -38,8 +37,10 @@ public class HotItems {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // 为了打印到控制台的结果不乱序，我们配置全局的并发为1，这里改变并发对结果正确性没有影响
         env.setParallelism(1);
+        // 设置按照 EventTime 处理（Flink 默认使用 ProcessingTime 处理）
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
-        // UserBehavior.csv 的本地文件路径
+        // UserBehavior.csv 的本地文件路径（resources 目录下）
         URL fileUrl = HotItems.class.getClassLoader().getResource("UserBehavior.csv");
         Path filePath = Path.fromLocalFile(new File(fileUrl.toURI()));
         // 抽取 UserBehavior 的 TypeInformation，是一个 PojoTypeInfo
@@ -49,36 +50,25 @@ public class HotItems {
         // 创建 PojoCsvInputFormat
         PojoCsvInputFormat<UserBehavior> csvInput = new PojoCsvInputFormat<>(filePath, pojoType, fieldOrder);
 
-        DataStream<UserBehavior> dataSource = env.createInput(csvInput, pojoType);
-        // Flink 默认使用 ProcessingTime 处理，所以我们要显式设置下
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-
-        // 获取业务时间（原始数据单位秒，将其转成毫秒）
-        // BoundedOutOfOrdernessTimestampExtractor
-        DataStream<UserBehavior> timedData = dataSource
+        env
+                // 创建数据源，得到 UserBehavior 类型的 DataStream
+                .createInput(csvInput, pojoType)
+                // 抽取出时间和生成 watermark
                 .assignTimestampsAndWatermarks(new AscendingTimestampExtractor<UserBehavior>() {
                     @Override
                     public long extractAscendingTimestamp(UserBehavior userBehavior) {
                         return userBehavior.timestamp * 1000;
                     }
-                });
-
-        // 过滤出只有点击的数据
-        DataStream<UserBehavior> pvData = timedData
-                .filter((FilterFunction<UserBehavior>) userBehavior -> userBehavior.behavior.equals("pv"));
-
-        // 窗口统计点击量
-        DataStream<ItemViewCount> windowedData = pvData
+                })
+                // 过滤出只有 pv 的数据
+                .filter((FilterFunction<UserBehavior>) userBehavior -> userBehavior.behavior.equals("pv"))
+                // 窗口统计点击量
                 .keyBy("itemId")
                 .timeWindow(Time.minutes(60), Time.minutes(5))
-                .aggregate(new CountAgg(), new WindowResultFunction());
-
-        // TopN 计算最热门商品
-        DataStream<String> topItems = windowedData
+                .aggregate(new CountAgg(), new WindowResultFunction())
                 .keyBy("windowEnd")
-                .process(new TopNHotItems(5));  // 求点击量前3名的商品
-
-        topItems.print();
+                .process(new TopNHotItems(3))
+                .print();
 
         env.execute("Hot Items Job");
     }

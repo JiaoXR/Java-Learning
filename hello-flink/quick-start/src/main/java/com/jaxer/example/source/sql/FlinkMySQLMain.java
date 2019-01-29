@@ -10,8 +10,9 @@ public class FlinkMySQLMain {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        env.addSource(new SourceMySQL()).print();
+        env.setParallelism(1).addSource(new SourceMySQL()).print();
 
         env.execute("Flink add data source");
     }
 }
+

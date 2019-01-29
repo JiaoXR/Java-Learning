@@ -35,8 +35,8 @@ public class KafkaUtil {
         props.put("bootstrap.servers", "localhost:9092");
         props.put("zookeeper.connect", "localhost:2181");
         props.put("group.id", "metric-group");
-        props.put("key.deserializer", DESERIALIZER_KEY);
-        props.put("value.deserializer", DESERIALIZER_VALUE);
+//        props.put("key.deserializer", DESERIALIZER_KEY);
+//        props.put("value.deserializer", DESERIALIZER_VALUE);
         props.put("auto.offset.reset", "latest");
         return props;
     }
