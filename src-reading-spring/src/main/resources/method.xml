@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 测试 lookup-method -->
+    <bean id="lookupMethod" class="com.jaxer.doc.method.lookup.LookupMethod">
+        <lookup-method bean="teacher" name="getUser"/>
+    </bean>
+
+    <!-- 测试 replaced-method -->
+    <bean id="teacher" class="com.jaxer.doc.method.lookup.Teacher">
+        <replaced-method name="show" replacer="replaceMethod"/>
+    </bean>
+
+    <bean id="replaceMethod" class="com.jaxer.doc.method.replace.ReplacedMethod"/>
+
+    <bean id="user" class="com.jaxer.doc.method.lookup.User"/>
+</beans>
