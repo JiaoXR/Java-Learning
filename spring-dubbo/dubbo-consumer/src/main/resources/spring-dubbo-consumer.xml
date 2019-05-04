@@ -21,6 +21,11 @@
     <!-- dubbo 缓存-->
     <dubbo:protocol id="dubbo" name="dubbo" port="${dubbo.port}" threadpool="cached" threads="${dubbo.threads}"/>
 
+    <!--消费者统一规则-->
+    <!--幂等（设置重试次数）【查询、删除等】、非幂等（不设置重试次数）-->
+    <dubbo:consumer check="false" timeout="3000" retries="3"/>
+
     <!-- 生成远程服务代理，可以和本地bean一样使用greetingService -->
-    <dubbo:reference id="greetingService" interface="com.jaxer.example.service.GreetingService"/>
+    <!--check属性：启动时是否检查接口，默认为 true-->
+    <dubbo:reference id="greetingService" interface="com.jaxer.example.service.GreetingService" check="false"/>
 </beans>
