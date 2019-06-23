@@ -14,6 +14,8 @@ maven 依赖：
 
 详细操作见代码：
 
+https://github.com/JiaoXR/Framework/blob/master/zookeeper-learning/src/test/java/com/jaxer/example/ZooKeeperTest.java
+
 
 
 ### 2. 客户端
@@ -30,6 +32,8 @@ maven 依赖：
 
 详细操作见代码：
 
+https://github.com/JiaoXR/Framework/blob/master/zookeeper-learning/src/test/java/com/jaxer/example/ZKClientTest.java
+
 
 
 ### 3. 客户端 Curator
@@ -45,4 +49,6 @@ maven 依赖：
 ```
 
 详细操作见代码：
+
+https://github.com/JiaoXR/Framework/blob/master/zookeeper-learning/src/test/java/com/jaxer/example/CuratorTest.java
 
