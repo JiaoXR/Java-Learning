@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       default-lazy-init="true"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <alias name="personService" alias="service"/>
+    <!--<import resource="src/main/resources/jdbc.xml"/>-->
+    <bean id="personService" class="com.jaxer.doc.bean.PersonService">
+        <property name="name" value="Ace"/>
+        <property name="employeeService" ref="employeeService"/>
+    </bean>
+
+    <bean id="employeeService" class="com.jaxer.doc.bean.EmployeeService">
+        <property name="personService" ref="personService"/>
+    </bean>
+</beans>

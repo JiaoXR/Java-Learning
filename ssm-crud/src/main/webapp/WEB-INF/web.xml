@@ -5,10 +5,12 @@
          version="3.1">
 
     <!--启动 Spring 容器配置-->
+    <!-- 配置文件位置 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
+    <!-- 监听器，Servlet容器启动时，会执行ServletContextListener#contextInitialized方法 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

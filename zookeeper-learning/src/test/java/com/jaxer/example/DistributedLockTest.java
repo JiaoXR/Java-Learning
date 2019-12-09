@@ -19,6 +19,26 @@ import java.util.concurrent.TimeUnit;
 public class DistributedLockTest {
 
 	@Test
+	public void testCWL() throws InterruptedException {
+		int count = 5;
+		CountDownLatch countDownLatch = new CountDownLatch(count);
+		for (int i = 0; i < count; i++) {
+			int finalI = i;
+			new Thread(() -> {
+				try {
+					TimeUnit.SECONDS.sleep(finalI);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName() + " is working ..");
+				countDownLatch.countDown();
+			}).start();
+		}
+		countDownLatch.await();
+		System.out.println(Thread.currentThread().getName() + " go on ..");
+	}
+
+	@Test
 	public void orders() {
 		// 模拟高并发场景下生成订单号（很可能重复）
 		CountDownLatch countDownLatch = new CountDownLatch(1);

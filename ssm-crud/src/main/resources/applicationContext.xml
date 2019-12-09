@@ -43,16 +43,13 @@
     </bean>
 
     <!--**************** 事务控制 ************************-->
+    <!-- 1. 事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="pooledDataSource"/>
     </bean>
-
-    <!--开启基于注解的事务，使用 XML 配置形式的事务（使用较多）-->
-    <aop:config>
-        <aop:pointcut id="txPoint" expression="execution(* com.jaxer.example.service..*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
-    </aop:config>
-    <!--配置事务通知，事务如何切入（transaction-manager 默认为 transactionManager）-->
+    <!-- 启用事务注解 -->
+    <!--<tx:annotation-driven/>-->
+    <!--2. 配置事务通知，事务如何切入（transaction-manager 默认为 transactionManager）-->
     <tx:advice id="txAdvice">
         <tx:attributes>
             <!--所有方法都是事务方法-->
@@ -61,5 +58,10 @@
             <tx:method name="get*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
+    <!-- 3. 事务切入点 -->
+    <aop:config>
+        <aop:pointcut id="txPoint" expression="execution(* com.jaxer.example.service..*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
 
 </beans>

@@ -7,6 +7,7 @@
     <import resource="daos.xml"/>
     <import resource="di.xml"/>
     <import resource="aware.xml"/>
+    <import resource="jdbc.xml"/>
 
     <!--可以取别名，也可以有多个名字-->
     <alias name="employee" alias="emp"/>

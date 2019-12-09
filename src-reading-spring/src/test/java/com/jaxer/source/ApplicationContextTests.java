@@ -1,6 +1,5 @@
 package com.jaxer.source;
 
-import com.jaxer.doc.service.EmployeeService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -14,16 +13,17 @@ public class ApplicationContextTests {
 	@Test
 	public void testApplicationContext() {
 		//相对路径
-		ApplicationContext context = new FileSystemXmlApplicationContext("classpath:beans.xml");
+		ApplicationContext context = new FileSystemXmlApplicationContext("classpath:di.xml");
 		//绝对路径
 //		ApplicationContext context = new FileSystemXmlApplicationContext("//Users/jaxer/GitHub-JiaoXR/Framework/src-reading-spring/src/main/resources/beans.xml");
 
 //		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/beans.xml");
-		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
-		employeeService.printName();
+//		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
+//		employeeService.printName();
+		System.out.println(context.getBean("thingOne"));
 
-		System.out.println(context.getBean("name1"));
-		System.out.println(context.getBean("name2"));
-		System.out.println(context.getBean("emp") == context.getBean("name2")); //true
+//		System.out.println(context.getBean("name1"));
+//		System.out.println(context.getBean("name2"));
+//		System.out.println(context.getBean("emp") == context.getBean("name2")); //true
 	}
 }
