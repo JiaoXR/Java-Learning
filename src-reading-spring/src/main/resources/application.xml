@@ -2,7 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        default-lazy-init="true"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <alias name="personService" alias="service"/>
     <!--<import resource="src/main/resources/jdbc.xml"/>-->
@@ -14,4 +18,14 @@
     <bean id="employeeService" class="com.jaxer.doc.bean.EmployeeService">
         <property name="personService" ref="personService"/>
     </bean>
+    <bean id="advice" class="com.jaxer.doc.aop.Advice"/>
+    <!--aop配置-->
+    <aop:aspectj-autoproxy/>
+    <aop:config>
+        <aop:pointcut id="pointcut" expression="execution(* com.jaxer.doc.bean.PersonService.printName(..))"/>
+        <aop:aspect ref="advice">
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
