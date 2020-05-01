@@ -17,11 +17,11 @@
 
     <!--**************** 数据源 ************************-->
 
-    <context:property-placeholder location="classpath:dbconfig.properties"/>
-    <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
-        <property name="driverClass" value="${jdbc.driverClass}"/>
-        <property name="user" value="${jdbc.user}"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${jdbc.jdbcUrl}"/>
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
@@ -30,7 +30,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--MyBatis 全局配置文件的位置-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="dataSource" ref="pooledDataSource"/>
+        <property name="dataSource" ref="dataSource"/>
 
         <!--指定 mapper 文件位置-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
@@ -39,18 +39,24 @@
     <!--配置扫描器，将 MyBatis 接口的实现加入到 IoC 容器中-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--扫描所有 DAO 接口的实现，添加到 IoC 容器-->
-        <property name="basePackage" value="com.jaxer.example"/>
+        <property name="basePackage" value="com.jaxer.example.dao"/>
+    </bean>
+
+    <!--可批量执行的SQLSession-->
+    <bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <constructor-arg name="executorType" value="BATCH"/>
     </bean>
 
     <!--**************** 事务控制 ************************-->
     <!-- 1. 事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="pooledDataSource"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- 启用事务注解 -->
     <!--<tx:annotation-driven/>-->
     <!--2. 配置事务通知，事务如何切入（transaction-manager 默认为 transactionManager）-->
-    <tx:advice id="txAdvice">
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <!--所有方法都是事务方法-->
             <tx:method name="*"/>

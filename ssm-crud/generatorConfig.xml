@@ -14,7 +14,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/ssm_crud?useSSL=false"
                         userId="root"
-                        password="hello">
+                        password="123456">
         </jdbcConnection>
 
         <javaTypeResolver>

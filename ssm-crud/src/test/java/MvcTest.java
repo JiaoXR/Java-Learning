@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,30 +24,32 @@ import java.time.format.DateTimeFormatter;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:applicationContext.xml",
-        "file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
+		"file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 public class MvcTest {
 
-    @Autowired
-    private WebApplicationContext context;
+	@Autowired
+	private WebApplicationContext context;
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @Test
-    public void testDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
-        String format = formatter.format(LocalDateTime.now());
-        System.out.println(format);
-    }
+	@Test
+	public void testDate() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
+		String format = formatter.format(LocalDateTime.now());
+		System.out.println(format);
+	}
 
-    @Before
-    public void initMockMvc() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-    }
+	@Before
+	public void initMockMvc() {
+		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+	}
 
-    @Test
-    public void test() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/emps")).andReturn();
-        ModelAndView modelAndView = mvcResult.getModelAndView();
-        System.out.println(modelAndView);
-    }
+	@Test
+	public void test() throws Exception {
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/emps")).andReturn();
+		ModelAndView modelAndView = mvcResult.getModelAndView();
+		System.out.println(modelAndView);
+		String content = mvcResult.getResponse().getContentAsString();
+		System.out.println("content-->" + JSONObject.parseObject(content));
+	}
 }

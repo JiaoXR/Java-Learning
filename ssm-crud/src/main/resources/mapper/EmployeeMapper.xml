@@ -233,6 +233,7 @@
         <result column="gender" jdbcType="SMALLINT" property="gender"/>
         <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <!--联合查询-->
         <association javaType="com.jaxer.example.bean.Department" property="department">
             <id column="deptId" property="id"/>
             <result column="deptName" property="name"/>

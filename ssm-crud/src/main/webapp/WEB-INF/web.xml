@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <!--启动 Spring 容器配置-->
+    <!--Spring容器配置-->
     <!-- 配置文件位置 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -19,6 +19,11 @@
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--默认从WEB-INF目录下查找 {servlet-name}-servlet.xml 配置文件，因此这里可以不用配置 contextConfigLocation-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcherServlet-servlet.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

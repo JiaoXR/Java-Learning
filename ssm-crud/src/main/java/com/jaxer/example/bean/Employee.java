@@ -17,9 +17,9 @@ public class Employee {
 
     private String name;
 
-    private Short age;
+    private Integer age;
 
-    private Short gender;
+    private Integer gender;
 
     private Integer deptId;
 

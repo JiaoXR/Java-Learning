@@ -1,4 +1,4 @@
-package com.jaxer.example.test;
+package com.jaxer.example.mbg;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 使用MyBatis逆向工程（MyBatis Generator）
  * @author jaxer
  * date 26/07/2018
  */
