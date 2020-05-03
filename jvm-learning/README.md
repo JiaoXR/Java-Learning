@@ -101,7 +101,7 @@ $ jstat -gc 14966
 
 如图所示：
 
-![jstat_1](/Users/jaxer/Desktop/jvm/jstat_1.png)
+![jstat_1](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jstat_1.png)
 
 > S0: Survivor space 0 utilization as a percentage of the space's current capacity.
 >
@@ -135,7 +135,7 @@ $ jstat -gc 14966 1000 10
 
 如图所示：
 
-![jstat_2](/Users/jaxer/Desktop/jvm/jstat_2.png)
+![jstat_2](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jstat_2.png)
 
 - 示例 3：查看类加载/卸载信息
 
@@ -214,7 +214,7 @@ $ jstack -l 26472 | more
 
 如图所示：
 
-![jstack](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/jstack.png)
+![jstack](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jstack.png)
 
 #### 2.1.5 jmap: Java 内存映像工具
 
@@ -245,7 +245,7 @@ Server is ready.
 
 Server 启动后，浏览器打开 http://localhost:7000/，可以看到如下信息：
 
-![jhat](/Users/jaxer/Desktop/jvm/jhat.png)
+![jhat](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jhat.png)
 
 > 实际工作中，一般不会直接使用 jhat 命令来分析 dump 文件，主要原因：
 >
@@ -262,15 +262,15 @@ jvisualvm 也是 JDK 自带的命令，虽然后面独立发展了。这两种�
 
 - 概览
 
-![visualvm_1](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/visualvm_1.png)
+![visualvm_1](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/visualvm_1.png)
 
 - 对象信息
 
-![visualvm_2](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/visualvm_2.png)
+![visualvm_2](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/visualvm_2.png)
 
 - 线程信息
 
-![visualvm_3](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/visualvm_3.png)
+![visualvm_3](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/visualvm_3.png)
 
 这个工具使用起来比 jhat 舒服多了。
 
@@ -278,7 +278,7 @@ jvisualvm 也是 JDK 自带的命令，虽然后面独立发展了。这两种�
 
 使用 jconsole 命令可以启动客户端，如下：
 
-![jconsole_1](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/jconsole_1.png)
+![jconsole_1](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jconsole_1.png)
 
 可以选择本地或者远程的 JVM 进程进行连接。
 
@@ -288,11 +288,11 @@ jvisualvm 也是 JDK 自带的命令，虽然后面独立发展了。这两种�
 
 - 概览
 
-![jconsole_2](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/jconsole_2.png)
+![jconsole_2](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jconsole_2.png)
 
 - 死锁检测
 
-![jconsole_3](/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/pics/jconsole_3.png)
+![jconsole_3](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/jconsole_3.png)
 
 除了上面 JDK 自带的工具，还有个很好用的阿里出品的 Arthas。
 
