@@ -201,7 +201,7 @@ Caused by: sun.jvm.hotspot.debugger.DebuggerException: Can't attach symbolicator
 	at sun.jvm.hotspot.debugger.bsd.BsdDebuggerLocal$BsdDebuggerLocalWorkerThread.run(BsdDebuggerLocal.java:144)
 ```
 
-查资料说是 JVM 的 bug（链接：https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8160376），在 JDK 9 b129 修复了。
+查资料说是 JVM 的 bug（链接：https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8160376 ），在 JDK 9 b129 修复了。
 
 #### 2.1.4 jstack: Java 堆栈跟踪工具
 
@@ -301,15 +301,249 @@ jvisualvm 也是 JDK 自带的命令，虽然后面独立发展了。这两种�
 > 官方文档：https://alibaba.github.io/arthas/  https://alibaba.github.io/arthas/en/
 >
 
-【TODO】
+#### 2.2.0 准备代码
+
+为了演示部分功能，这里准备了一些简单的示例代码：
+
+- Hello.java
+
+```java
+package com.jaxer.jvm.arthas;
+
+import java.time.LocalDateTime;
+
+public class Hello {
+	public void sayHello() {
+		System.out.println(LocalDateTime.now() + " hello");
+	}
+}
+```
+
+- ArthasTest.java
+
+```java
+package com.jaxer.jvm.arthas;
+
+import java.util.concurrent.TimeUnit;
+
+public class ArthasTest {
+	public static void main(String[] args) throws InterruptedException {
+		while (true) {
+			TimeUnit.SECONDS.sleep(5);
+			new Hello().sayHello();
+		}
+	}
+}
+```
+
+代码比较简单，这里不再赘述。
+
+#### 2.2.1 启动 Arthas
+
+Arthas 其实是一个 jar 包，下载后运行：
+
+```bash
+$ java -jar arthas-boot.jar
+```
+
+启动成功后：
+
+![arthas_boot_1](/Users/jaxer/Desktop/jvm/arthas/arthas_boot_1.png)
+
+Arthas 会检测本地 JVM 进程并列出来（参见上面的 jps 命令），选择前面的序号就能进入对应的进程分析。这里选择 1，然后回车：
+
+![arthas_boot_2](/Users/jaxer/Desktop/jvm/arthas/arthas_boot_2.png)
+
+这样就成功连接到了该进程。接下来就可以执行各种命令来分析 JVM 了。
+
+#### 2.2.2 help
+
+使用 help 命令可以看到 Arthas 的命令概览：
+
+```bash
+[arthas@36934]$ help
+ NAME         DESCRIPTION
+ help         Display Arthas Help
+ keymap       Display all the available keymap for the specified connection.
+ sc           Search all the classes loaded by JVM
+ sm           Search the method of classes loaded by JVM
+ classloader  Show classloader info
+ jad          Decompile class
+ getstatic    Show the static field of a class
+ monitor      Monitor method execution statistics, e.g. total/success/failure count, average rt, fail rate, etc.
+ stack        Display the stack trace for the specified class and method
+ thread       Display thread info, thread stack
+ trace        Trace the execution time of specified method invocation.
+ watch        Display the input/output parameter, return object, and thrown exception of specified method invocation
+ tt           Time Tunnel
+ jvm          Display the target JVM information
+ perfcounter  Display the perf counter infornation.
+ ognl         Execute ognl expression.
+ mc           Memory compiler, compiles java files into bytecode and class files in memory.
+ redefine     Redefine classes. @see Instrumentation#redefineClasses(ClassDefinition...)
+ dashboard    Overview of target jvm's thread, memory, gc, vm, tomcat info.
+ dump         Dump class byte array from JVM
+ heapdump     Heap dump
+ options      View and change various Arthas options
+ cls          Clear the screen
+ reset        Reset all the enhanced classes
+ version      Display Arthas version
+ session      Display current session information
+ sysprop      Display, and change the system properties.
+ sysenv       Display the system env.
+ vmoption     Display, and update the vm diagnostic options.
+ logger       Print logger info, and update the logger level
+ history      Display command history
+ cat          Concatenate and print files
+ echo         write arguments to the standard output
+ pwd          Return working directory name
+ mbean        Display the mbean information
+ grep         grep command for pipes.
+ tee          tee command for pipes.
+ profiler     Async Profiler. https://github.com/jvm-profiling-tools/async-profiler
+ stop         Stop/Shutdown Arthas server and exit the console.
+```
+
+此外，还可以查看每个命令的解释及用法。命令后面加 -help，例如：
+
+```bash
+[arthas@36934]$ help -help
+ USAGE:
+   help [-h] [cmd]
+
+ SUMMARY:
+   Display Arthas Help
+ Examples:
+  help
+  help sc
+  help sm
+  help watch
+
+ OPTIONS:
+ -h, --help                                      this help
+ <cmd>                                           command name
+```
+
+#### 2.2.3 dashboard
+
+dashboard 命令可以总览 JVM 状况（默认 5 秒刷新一次）：
+
+![arthas_dashboard](/Users/jaxer/Desktop/jvm/arthas/arthas_dashboard.png)
+
+#### 2.2.4 jvm
+
+jvm 可以查看当前 JVM 的运行时信息，比如机器信息、JVM 版本、启动参数、ClassPath：
+
+![arthas_jvm_1](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_1.png)
+
+还有类加载信息、编译信息、垃圾收集器、内存相关信息：
+
+![arthas_jvm_2](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_2.png)
+
+以及操作系统信息、线程等：
+
+![arthas_jvm_3](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_3.png)
+
+#### 2.2.5 thread
+
+线程信息、线程堆栈：
+
+![arthas_thread](/Users/jaxer/Desktop/jvm/arthas/arthas_thread.png)
+
+#### 2.2.6 sc & sm
+
+sc 可以查看类加载信息：
+
+```bash
+[arthas@36934]$ sc com.jaxer.*
+com.jaxer.jvm.arthas.ArthasTest
+com.jaxer.jvm.arthas.Hello
+Affect(row-cnt:2) cost in 36 ms.
+```
+
+sm 可以查看类的方法信息：
+
+```bash
+[arthas@36934]$ sm com.jaxer.jvm.arthas.ArthasTest
+com.jaxer.jvm.arthas.ArthasTest <init>()V
+com.jaxer.jvm.arthas.ArthasTest main([Ljava/lang/String;)V
+Affect(row-cnt:2) cost in 14 ms.
+```
+
+#### 2.2.7 jad
+
+jad 可以对一个类进行反编译，例如：
+
+```bash
+[arthas@36934]$ jad com.jaxer.jvm.arthas.Hello
+
+ClassLoader:
++-sun.misc.Launcher$AppClassLoader@18b4aac2
+  +-sun.misc.Launcher$ExtClassLoader@14612fee
+
+Location:
+/Users/jaxer/GitHub-JiaoXR/Java-Learning/jvm-learning/target/classes/
+
+/*
+ * Decompiled with CFR.
+ */
+package com.jaxer.jvm.arthas;
+
+import java.time.LocalDateTime;
+
+public class Hello {
+    public void sayHello() {
+        System.out.println(LocalDateTime.now() + " hello");
+    }
+}
+
+Affect(row-cnt:1) cost in 260 ms.
+```
+
+#### 2.2.8 redefine
+
+redefine 就是热部署，通俗来讲就是「开着飞机换引擎」。比如上述代码的运行结果是：
+
+```bash
+2020-05-04T16:07:04.242 hello
+2020-05-04T16:07:09.247 hello
+...
+```
+
+在不停止该程序的情况下，可以改变输出内容吗？答案是肯定的！
+
+怎么做呢？
+
+首先在本地新建一个与 Hello.java 内容完全一样的文件（名字也完全一样），然后修改方法内容，新的 Hello.java 文件内容如下：
+
+```java
+package com.jaxer.jvm.arthas;
+
+import java.time.LocalDateTime;
+
+public class Hello {
+	public void sayHello() {
+		System.out.println(LocalDateTime.now() + " I'm hungry");
+	}
+}
+```
+
+然后在本地执行 javac 将其编译为 class 文件（此处的路径为 /Users/jaxer/Desktop/Hello.class），然后运行 redefine 命令如下：
+
+```bash
+[arthas@36934]$ redefine /Users/jaxer/Desktop/Hello.class
+redefine success, size: 1
+```
+
+这时候去观察输出结果，神奇的事情发生了：
+
+![arthas_redefine](/Users/jaxer/Desktop/jvm/arthas/arthas_redefine.png)
+
+> 注意：直到现在，原先的程序还是一直在运行的，并没有停下来。
+
+有木有开着飞机换引擎的感觉？nubility！
 
 
 
-
-
-
-
-
-
-
+其他还有很多命令，小伙伴们可以自己尝试。不知道怎么用时别忘了 -help。
 
