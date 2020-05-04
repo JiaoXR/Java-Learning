@@ -348,11 +348,11 @@ $ java -jar arthas-boot.jar
 
 启动成功后：
 
-![arthas_boot_1](/Users/jaxer/Desktop/jvm/arthas/arthas_boot_1.png)
+![arthas_boot_1](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_boot_1.png)
 
 Arthas 会检测本地 JVM 进程并列出来（参见上面的 jps 命令），选择前面的序号就能进入对应的进程分析。这里选择 1，然后回车：
 
-![arthas_boot_2](/Users/jaxer/Desktop/jvm/arthas/arthas_boot_2.png)
+![arthas_boot_2](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_boot_2.png)
 
 这样就成功连接到了该进程。接下来就可以执行各种命令来分析 JVM 了。
 
@@ -428,27 +428,27 @@ Arthas 会检测本地 JVM 进程并列出来（参见上面的 jps 命令），
 
 dashboard 命令可以总览 JVM 状况（默认 5 秒刷新一次）：
 
-![arthas_dashboard](/Users/jaxer/Desktop/jvm/arthas/arthas_dashboard.png)
+![arthas_dashboard](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_dashboard.png)
 
 #### 2.2.4 jvm
 
 jvm 可以查看当前 JVM 的运行时信息，比如机器信息、JVM 版本、启动参数、ClassPath：
 
-![arthas_jvm_1](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_1.png)
+![arthas_jvm_1](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_jvm_1.png)
 
 还有类加载信息、编译信息、垃圾收集器、内存相关信息：
 
-![arthas_jvm_2](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_2.png)
+![arthas_jvm_2](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_jvm_2.png)
 
 以及操作系统信息、线程等：
 
-![arthas_jvm_3](/Users/jaxer/Desktop/jvm/arthas/arthas_jvm_3.png)
+![arthas_jvm_3](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_jvm_3.png)
 
 #### 2.2.5 thread
 
 线程信息、线程堆栈：
 
-![arthas_thread](/Users/jaxer/Desktop/jvm/arthas/arthas_thread.png)
+![arthas_thread](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_thread.png)
 
 #### 2.2.6 sc & sm
 
@@ -537,7 +537,7 @@ redefine success, size: 1
 
 这时候去观察输出结果，神奇的事情发生了：
 
-![arthas_redefine](/Users/jaxer/Desktop/jvm/arthas/arthas_redefine.png)
+![arthas_redefine](https://github.com/JiaoXR/Java-Learning/blob/master/jvm-learning/pics/arthas/arthas_redefine.png)
 
 > 注意：直到现在，原先的程序还是一直在运行的，并没有停下来。
 
