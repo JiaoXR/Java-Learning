@@ -1,8 +1,11 @@
 package com.jaxer.source;
 
+import com.jaxer.doc.config.BeanConfig;
+import com.jaxer.doc.ioc.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * ApplicationContext测试
@@ -10,20 +13,31 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * Created by jaxer on 2018/11/28
  */
 public class ApplicationContextTests {
-	@Test
-	public void testApplicationContext() {
-		//相对路径
-		ApplicationContext context = new FileSystemXmlApplicationContext("classpath:di.xml");
-		//绝对路径
-//		ApplicationContext context = new FileSystemXmlApplicationContext("//Users/jaxer/GitHub-JiaoXR/Framework/src-reading-spring/src/main/resources/beans.xml");
+    @Test
+    public void test03() {
+        System.out.println(ApplicationContextTests.this);
+        System.out.println(this);
+        System.out.println(new ApplicationContextTests());
+        System.out.println(ApplicationContextTests.class);
+    }
 
-//		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/beans.xml");
-//		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
-//		employeeService.printName();
-		System.out.println(context.getBean("thingOne"));
+    /**
+     * 注解配置
+     */
+    @Test
+    public void test02() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
+        Person person = context.getBean(Person.class);
+        System.out.println(person);
+    }
 
-//		System.out.println(context.getBean("name1"));
-//		System.out.println(context.getBean("name2"));
-//		System.out.println(context.getBean("emp") == context.getBean("name2")); //true
-	}
+    /**
+     * XML配置
+     */
+    @Test
+    public void test01() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-ioc.xml");
+        System.out.println(context.getBean("person"));
+        System.out.println(context.getBean("person"));
+    }
 }

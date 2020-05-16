@@ -8,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * 代码千万行，注释第一行。
  * Spring整合junit
  * <p>
  * Created by jaxer on 2019-11-03
@@ -16,11 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:application.xml")
 public class SpringTest {
-	@Autowired
-	private PersonService personService;
+    @Autowired
+    private PersonService personService;
 
-	@Test
-	public void print() {
-		personService.printName("Tom");
-	}
+    @Test
+    public void print() {
+        personService.printName("Tom");
+    }
 }

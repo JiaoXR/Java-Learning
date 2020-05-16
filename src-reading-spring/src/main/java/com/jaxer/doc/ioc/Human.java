@@ -5,5 +5,6 @@ package com.jaxer.doc.ioc;
  *
  * @author jaxer
  */
-public class Human {
+public abstract class Human {
+    protected int id;
 }

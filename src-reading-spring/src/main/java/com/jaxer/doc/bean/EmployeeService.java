@@ -1,9 +1,6 @@
 package com.jaxer.doc.bean;
 
 /**
- * 代码千万行，注释第一行。
- * <p>
- * <p>
  * Created by jaxer on 2019-12-08
  */
 public class EmployeeService {

@@ -1,4 +1,4 @@
-package com.jaxer.doc;
+package com.jaxer.doc.config;
 
 import com.jaxer.doc.ioc.Person;
 import org.springframework.context.annotation.Bean;

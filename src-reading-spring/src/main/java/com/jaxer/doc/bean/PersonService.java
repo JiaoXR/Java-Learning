@@ -1,7 +1,6 @@
 package com.jaxer.doc.bean;
 
 /**
- * 代码千万行，注释第一行。
  * 测试IoC
  * <p>
  * Created by jaxer on 2019-10-31

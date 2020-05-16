@@ -1,7 +1,6 @@
 package com.jaxer.doc.aop;
 
 /**
- * 代码千万行，注释第一行。
  * 测试AOP
  * <p>
  * Created by jaxer on 2019-12-16
