@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Example1 {
 	private static ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(
-			50, new ThreadPoolExecutor.DiscardOldestPolicy());
+			10, new ThreadPoolExecutor.DiscardOldestPolicy());
 
 	public static void main(String[] args) throws InterruptedException {
 		for (; ; ) {
