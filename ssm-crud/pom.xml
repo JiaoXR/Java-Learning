@@ -11,7 +11,11 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring.version>5.0.7.RELEASE</spring.version>
+        <java.version>1.8</java.version>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <spring.version>5.2.6.RELEASE</spring.version>
         <jackson.version>2.9.5</jackson.version>
     </properties>
 
@@ -146,8 +150,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
