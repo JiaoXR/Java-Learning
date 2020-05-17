@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- Spring AOP 测试 -->
+
+    <!-- 目标对象 -->
+    <bean id="userDAO" class="com.jaxer.doc.aop.UserDAO"/>
+
+    <!-- 切面类 -->
+    <bean id="serviceMonitor" class="com.jaxer.doc.aop.xml.ServiceMonitor"/>
+
+    <aop:config>
+        <aop:pointcut id="monitor" expression="execution(* com.jaxer.doc.aop.UserDAO.*(..))"/>
+        <aop:aspect ref="serviceMonitor">
+            <aop:around method="around" pointcut-ref="monitor"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

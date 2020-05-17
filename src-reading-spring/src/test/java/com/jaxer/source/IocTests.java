@@ -8,17 +8,17 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * ApplicationContext测试
+ * 测试Spring IoC
  * <p>
  * Created by jaxer on 2018/11/28
  */
-public class ApplicationContextTests {
+public class IocTests {
     @Test
     public void test03() {
-        System.out.println(ApplicationContextTests.this);
+        System.out.println(IocTests.this);
         System.out.println(this);
-        System.out.println(new ApplicationContextTests());
-        System.out.println(ApplicationContextTests.class);
+        System.out.println(new IocTests());
+        System.out.println(IocTests.class);
     }
 
     /**
