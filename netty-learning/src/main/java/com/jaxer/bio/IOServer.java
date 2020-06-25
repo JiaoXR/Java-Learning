@@ -1,6 +1,6 @@
-package com.jaxer.netty.bio;
+package com.jaxer.bio;
 
-import com.jaxer.netty.common.CommonConstant;
+import com.jaxer.common.CommonConstant;
 
 import java.io.IOException;
 import java.io.InputStream;

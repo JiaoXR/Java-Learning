@@ -1,4 +1,4 @@
-package com.jaxer.netty.common;
+package com.jaxer.common;
 
 /**
  * 一些常量
@@ -13,5 +13,6 @@ public class CommonConstant {
     // 监听端口号（HTTP请求端口）
     public static final int HTTP_PORT = 80;
 
-    public static final int PORT = 8888;
+    // Netty测试端口
+    public static final int NETTY_PORT = 8888;
 }
